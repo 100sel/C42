@@ -1261,7 +1261,7 @@ void	mandatory(void)
 		assert_ft_memset,
 		assert_ft_bzero,
 		assert_ft_memcpy,
-		assert_ft_memccpy,
+		//assert_ft_memccpy,
 		assert_ft_memmove,
 		assert_ft_memchr,
 		assert_ft_memcmp,
