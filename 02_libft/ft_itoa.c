@@ -22,28 +22,26 @@ char *ft_itoa(int n)
 
     i = 0;
 
-    while (n / 10 > 1)
+    while (n)
     {
         b[i++] = nbr % 10;
-        nbr = nbr / 10;
+        nbr /= 10;
     }
-    b[i]    = nbr;
 
     if (neg)
         i++;
 
-    ret = malloc(sizeof(int) * (i + 1));
+    ret = malloc(sizeof(char) * (i + 1));
     j = 0;
 
     if (neg)
     {
         ret[j++] = neg;
-        i--;
     }
 
-    while (i >= 0)
+    while (i > 0)
     {
-        ret[j++] = b[i--] + 48;
+        ret[j++] = b[--i] + '0';
     }
 
     ret[j] = '\0';
