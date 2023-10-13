@@ -6,7 +6,7 @@ int power(int n, int p)
     int ret;
     k = 0;
     ret = 1;
-    while (k++ < p - 1)
+    while (k++ < p)
         ret *= n;
     return ret;
 };
