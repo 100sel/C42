@@ -23,7 +23,7 @@ int ft_atoi(const char *s)
     i = 0;
     j = size;
 
-    if (s[0] == *"-" || s[0] == *"+")
+    if (s[0] == '-' || s[0] == '+')
     {
         i++;
         j -= 1;
@@ -36,10 +36,10 @@ int ft_atoi(const char *s)
         if (!ft_isdigit(s[i]))
             return 0;
 
-        res += (int)(s[i++]) * (power(10, --j));
+        res += (int)(s[i++] - '0') * (power(10, --j));
     }
 
-    if (s[0] == *"-")
+    if (s[0] == '-')
         res *= -1;
 
     return res;
