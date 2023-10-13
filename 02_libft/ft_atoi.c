@@ -13,30 +13,28 @@ int power(int n, int p)
 
 int ft_atoi(const char *s)
 {
-    int size;
     int res;
     int i;
     int j;
 
-    size = ft_strlen(s);
     res = 0;
     i = 0;
-    j = size;
+    j = ft_strlen(s) - 1;
 
     if (s[0] == '-' || s[0] == '+')
     {
         i++;
-        j -= 1;
+        j--;
     }
     else if (!ft_isdigit(s[0]))
         return 0;
 
-    while (i < size)
+    while (s[i])
     {
         if (!ft_isdigit(s[i]))
             return 0;
 
-        res += (int)(s[i++] - '0') * (power(10, --j));
+        res += (int)(s[i++] - '0') * (power(10, j--));
     }
 
     if (s[0] == '-')
