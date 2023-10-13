@@ -68,88 +68,30 @@ char **ft_split(char const *s, char c)
 {
     int  i;
     int  j;
-    //int  k;
-    int  count_c;
-    int  count_s;
-    //int  count_total;
-    char **arr_p_c;
-    char **arr_p_s;
-    //char *ret;
+    int  count_ret;
+    char **ret;
 
-    i = 0;
-    j = 0;
+    count_ret   = 0;
+    i           = 0;
 
     while (s[i])
     {
-        if (s[i] == c)
-            count_c++;
+        if (s[i] == c && s[i + 1] != c)
+            count_ret++;
         i++;
     }
 
-    arr_p_c = malloc( sizeof(char *) * (count_c + 1) );
-    i       = 0;
+    ret = malloc(sizeof(char *) * (count_ret + 1));
+    i   = 0;
+    j   = 0;
 
     while (s[i])
     {
-        if (s[i] == c)
-            arr_p_c[j++] = (char *)s + i;
+        if (s[i] == c && s[i + 1] != c)
+            ret[j++] = (char *)s + i + 1;
         i++;
     }
-    arr_p_c[j] = "\0";
+    ret[j] = "\0";
 
-    i = 0;
-    j = 0;
-
-    while (arr_p_c[i])
-    {
-        if (*arr_p_c[i + 1] != c)
-            count_s++;
-        i++; 
-    }
-
-    arr_p_s = malloc(sizeof(char *) * (count_s + 1));
-    i       = 0;
-
-    while (arr_p_c[i])
-    {
-        if (*arr_p_c[i + 1] != c)
-            arr_p_s[j++] = arr_p_c[i + 1];
-        i++;
-    }
-    arr_p_s[j] = "\0";
-
-    free(arr_p_c);
-    return arr_p_s;
-/*
-    i = 0;
-    j = 0;
-
-    while (arr_p_s[i])
-    {
-        while (arr_p_s[i][j] != c)
-        {
-            count_total++;
-            j++;
-        }
-        j = 0;
-        i++;
-    }
-
-    ret = malloc( (count_s * sizeof(char)) + count_total * sizeof (char) ); 
-    i = 0;
-    j = 0;
-
-    while (arr_p_s[i])
-    {
-        while(arr_p_s[i][j] != c)
-        {
-            ret[k++] = arr_p_s[i][j++]; 
-        }
-        ret[k++] = '\0';
-        i++;
-    }
-
-    free(arr_p_s);
     return ret;
-*/
 }
