@@ -7,7 +7,7 @@ size_t ft_strlcat(char *dest, const char *src, size_t n)
     int     i;
     int     j;
 
-    i = ft_strlen(dest);
+    i = (int)ft_strlen(dest);
     j = 0;
 
     while (i < (int)n - 1 && src[i])
