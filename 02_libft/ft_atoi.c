@@ -23,12 +23,14 @@ int ft_atoi(const char *s)
     i = 0;
     j = size;
 
-    if (!ft_isdigit(s[0]) && (s[0] != *"-" || s[0] != *"+"))
+    if (s[0] == *"-" || s[0] == *"+")
+        i++;
+    else if (!ft_isdigit(s[0]))
         return 0;
 
     while (i <= size)
     {
-        if (i > 0 && !ft_isdigit(s[i]))
+        if (!ft_isdigit(s[i]))
             return 0;
 
         res += (int)(s[i++]) * (power(10, j));
