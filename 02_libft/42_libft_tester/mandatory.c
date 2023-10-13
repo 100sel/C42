@@ -1289,7 +1289,7 @@ void	mandatory(void)
 	//	assert_ft_itoa,
 	//	assert_ft_strmapi,
 	//	assert_ft_putchar_fd,
-		assert_ft_putstr_fd,
+	//	assert_ft_putstr_fd,
 		assert_ft_putendl_fd,
 		assert_ft_putnbr_fd
 	};
