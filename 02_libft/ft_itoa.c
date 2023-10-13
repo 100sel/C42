@@ -5,7 +5,7 @@ char *ft_itoa(int n)
     char *ret;
     int nbr;
     char neg;
-    int b[11];
+    int b[10];
     int i;
     int j;
 
@@ -33,7 +33,7 @@ char *ft_itoa(int n)
         }
     }
 
-    ret = malloc(sizeof(char) * (i + 1));
+    ret = malloc(sizeof(char) * (i + 1 + 1));
     j = 0;
 
     while (i > 0) 
