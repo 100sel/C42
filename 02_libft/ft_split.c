@@ -88,7 +88,7 @@ char **ft_split(char const *s, char c)
     while (s[i])
     {
         if (s[i] == c && s[i + 1] != c)
-            ret[j++] = (char *)s + i + 1;
+            ret[j++] = (char *)(s + i + 1);
         i++;
     }
     ret[j] = 0;
