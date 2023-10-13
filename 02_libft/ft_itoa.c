@@ -39,11 +39,13 @@ char *ft_itoa(int n)
     ret = malloc(sizeof(char) * (i + 1));
     j = 0;
 
-    if (neg)
-        ret[j++] = neg;
-
-    while (i > 0 && j < i) 
-        ret[j++] = b[--i] + '0';
+    while (i > 0) 
+    {
+        if (neg && j == 0)
+            ret[j++] = neg;
+        else
+            ret[j++] = b[--i] + '0';
+    }
 
     ret[j] = '\0';
     return ret;
