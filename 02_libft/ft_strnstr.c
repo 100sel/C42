@@ -2,6 +2,8 @@
 
 char *ft_strnstr(const char *s1, const char *s2, size_t n)
 {
+    if ( !n || !s2[0] )
+        return (char *)s1;
     int     i;
     int     j;
     int     k;
