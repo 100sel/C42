@@ -17,7 +17,7 @@ char *ft_itoa(int n)
     else
     {
         neg = '-';
-        nbr = -n; 
+        nbr = n * -1; 
     }
 
     i = 0;
