@@ -2,7 +2,9 @@
 
 void ft_putendl_fd(char *s, int fd)
 {
-    write(fd, s, ft_strlen(s)); 
-    write(fd, "\n", 1); 
+    int i = 0;
+    while (s[i])
+        ft_putchar_fd(s[i], fd);
+    ft_putchar_fd('\n', fd); 
     return;
 }
