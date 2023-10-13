@@ -6,7 +6,7 @@ int power(int n, int p)
     int ret;
     k = 0;
     ret = 1;
-    while (k++ < p)
+    while (k++ < p - 1)
         ret *= n;
     return ret;
 };
@@ -24,11 +24,14 @@ int ft_atoi(const char *s)
     j = size;
 
     if (s[0] == *"-" || s[0] == *"+")
+    {
         i++;
+        size -= 1;
+    }
     else if (!ft_isdigit(s[0]))
         return 0;
 
-    while (i <= size)
+    while (i < size)
     {
         if (!ft_isdigit(s[i]))
             return 0;
