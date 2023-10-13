@@ -1,5 +1,15 @@
 #include "libft.h"
 
+int  checkset(char c, char const *set)
+{
+    int i;
+    i = 0;
+    while (set[i])
+        if (c == set[i++])
+            return 1;
+    return 0;
+}
+
 char *ft_strtrim(char const *s1, char const *set)
 {
     char    *ret;
@@ -10,13 +20,13 @@ char *ft_strtrim(char const *s1, char const *set)
 
     i = 0;
 
-    while (s1[i] == *set)
+    while (checkset(s1[i], set))
         i++;
 
     start = i;
-    i = ft_strlen(s1);
+    i = ft_strlen(s1 - 1);
 
-    while (s1[i] == *set)
+    while (checkset(s1[i], set))
         i--;
 
     end = i;
