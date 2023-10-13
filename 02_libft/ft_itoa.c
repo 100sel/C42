@@ -42,7 +42,7 @@ char *ft_itoa(int n)
     if (neg)
         ret[j++] = neg;
 
-    while (i > 0 && j < i)
+    while (i >= 0)
         ret[j++] = b[--i] + '0';
 
     ret[j] = '\0';
