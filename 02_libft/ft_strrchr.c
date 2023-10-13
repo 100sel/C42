@@ -2,6 +2,8 @@
 
 char    *ft_strrchr(const char *s, int c)
 {
+    if (c == 0)
+        return c;
     int     i;
     int     ss;
     char    *p;
