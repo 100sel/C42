@@ -2,14 +2,16 @@
 
 size_t ft_strlcat(char *dest, const char *src, size_t n)
 {
-    if (n <= ft_strlen(dest) || n > sizeof dest)
+    if (n <= sizeof dest)
         return ft_strlen(dest) + ft_strlen(src);
 
     int     i;
     int     j;
 
-    i = (int)ft_strlen(dest);
+    i = 0;
     j = 0;
+
+    while (dest[i++])
 
     while (i < (int)n - 1 && src[i])
         dest[i++] = src[j++];
