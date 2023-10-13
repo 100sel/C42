@@ -18,7 +18,7 @@ char *ft_strnstr(const char *s1, const char *s2, size_t n)
             k = i;
 
    
-            while (s1[k++] == s2[j++] && k < (int)n)
+            while (s1[k] == s2[j++] && k++ < (int)n)
             {
                 if (!s2[j])
                     return (char *)(s1 + i);
