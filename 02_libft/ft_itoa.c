@@ -2,33 +2,35 @@
 
 char *ft_itoa(int n)
 {
-    char    *ret;
-    int     nbr;
-    char    neg;
-    int     b[11];
-    int     i;
-    int     j;
+    char *ret;
+    int nbr;
+    char neg;
+    int b[11];
+    int i;
+    int j;
 
     if (n >= 0)
     {
         neg = '\0';
         nbr = n;
     }
-    else 
+    else
     {
         neg = '-';
-        nbr = n * -1;   
+        nbr = n * -1;
     }
 
     i = 0;
-    
-    if (nbr == 0)
-        return "0";
 
-    while (nbr)
+    if (nbr == 0)
+        b[i++] = 0;
+    else
     {
-        b[i++] = nbr % 10;
-        nbr /= 10;
+        while (nbr)
+        {
+            b[i++] = nbr % 10;
+            nbr /= 10;
+        }
     }
 
     if (neg)
@@ -40,12 +42,11 @@ char *ft_itoa(int n)
     if (neg)
     {
         ret[j++] = neg;
-        i--;
     }
 
-    while (i >= 0)
+    while (i > 0)
     {
-        ret[j++] = b[i--] + '0';
+        ret[j++] = b[--i] + '0';
     }
 
     ret[j] = '\0';
