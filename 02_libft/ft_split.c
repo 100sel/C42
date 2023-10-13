@@ -91,7 +91,7 @@ char **ft_split(char const *s, char c)
             ret[j++] = (char *)s + i + 1;
         i++;
     }
-    ret[j] = "\0";
+    ret[j] = 0;
 
     return ret;
 }
