@@ -2,7 +2,8 @@
 
 void ft_putendl_fd(char *s, int fd)
 {
-    write(fd, s, ft_strlen(s) + 1);
-    write(fd, "\n", 1);
+    const char  endl = '\n';
+    write(fd, s, ft_strlen(s));
+    write(fd, &endl, 1);
     return;
 }
