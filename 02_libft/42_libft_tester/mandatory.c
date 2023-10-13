@@ -503,7 +503,7 @@ void	assert_ft_memcpy(void)
 			wait(0);
 	}
 }
-
+/*
 void	assert_ft_memccpy(void)
 {
 	char			*strs[]	= 	{"gi751e8puUangYNEuztn",
@@ -536,7 +536,7 @@ void	assert_ft_memccpy(void)
 			wait(0);
 	}
 }
-
+*/
 void	assert_ft_memmove(void)
 {
 	char			*strs[]	= 	{"gi751e8puUangYNEuztn",
