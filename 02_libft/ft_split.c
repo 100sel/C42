@@ -108,6 +108,7 @@ char **ft_split(char const *s, char c)
             j++;
         }
     }
+    arr_p_s[j] = "\0";
 
     return arr_p_s;
 }
