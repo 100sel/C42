@@ -22,7 +22,7 @@ char *ft_itoa(int n)
 
     i = 0;
 
-    while (n)
+    while (nbr)
     {
         b[i++] = nbr % 10;
         nbr /= 10;
