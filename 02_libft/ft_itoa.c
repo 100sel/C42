@@ -32,7 +32,7 @@ char *ft_itoa(int n)
     if (neg)
         i++;
 
-    ret = malloc(sizeof(int) * i + 1);
+    ret = malloc(sizeof(int) * (i + 1));
     j = 0;
 
     if (neg)
