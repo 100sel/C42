@@ -89,22 +89,25 @@ char **ft_split(char const *s, char c)
     arr_p_s = malloc(sizeof(char *) * (count_s + 1) );
     i       = 0;
     j       = 0;
-    k       = 0;
 
     while (s[i])
     {
         while (s[i] && s[i] == c)
             i++;
-        if (s[i] != c)
+        if (s[i])
         {
             start = i;
             while (s[i] && s[i] != c)
-                count_s++;
-            arr_p_s[j] = malloc(count_s + 1);
-            i = start;
-            while (s[i] && s[i] != c)
-                arr_p_s[j][k++] = s[i++];
-            arr_p_s[j][k] = '\0';
+                i++;
+            arr_p_s[j] = malloc(i - start + 1);
+
+            k = start;
+            while (k < i)
+            {
+                arr_p_s[j][k - start] = s[k]; 
+                k++;
+            } 
+            arr_p_s[j][k - start] = '\0';
             j++;
         }
     }
