@@ -40,14 +40,10 @@ char *ft_itoa(int n)
     j = 0;
 
     if (neg)
-    {
         ret[j++] = neg;
-    }
 
-    while (i > 0)
-    {
+    while (i > 0 && j < i)
         ret[j++] = b[--i] + '0';
-    }
 
     ret[j] = '\0';
     return ret;
