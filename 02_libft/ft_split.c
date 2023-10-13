@@ -86,7 +86,7 @@ char **ft_split(char const *s, char c)
         i++;
     }
 
-    arr_p_c = malloc(sizeof(char *) * count_c + 1);
+    arr_p_c = malloc( sizeof(char *) * (count_c + 1) );
     i       = 0;
 
     while (s[i])
@@ -95,7 +95,7 @@ char **ft_split(char const *s, char c)
             arr_p_c[j++] = (char *)s + i;
         i++;
     }
-    arr_p_c[j] = 0;
+    arr_p_c[j] = "\0";
 
     i = 0;
     j = 0;
@@ -107,7 +107,7 @@ char **ft_split(char const *s, char c)
         i++; 
     }
 
-    arr_p_s = malloc(sizeof(char *) * count_s + 1);
+    arr_p_s = malloc(sizeof(char *) * (count_s + 1));
     i       = 0;
 
     while (arr_p_c[i])
@@ -116,7 +116,7 @@ char **ft_split(char const *s, char c)
             arr_p_s[j++] = arr_p_c[i + 1];
         i++;
     }
-    arr_p_s[j] = 0;
+    arr_p_s[j] = "\0";
 
     free(arr_p_c);
     return arr_p_s;
