@@ -33,9 +33,6 @@ char *ft_itoa(int n)
         }
     }
 
-    if (neg)
-        i++;
-
     ret = malloc(sizeof(char) * (i + 1));
     j = 0;
 
