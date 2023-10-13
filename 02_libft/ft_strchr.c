@@ -8,7 +8,7 @@ char    *ft_strchr(const char *s, int c)
 
     ss  = ft_strlen(s);
     i   = 0;
-    p   = 0;
+    p   = "\0";
 
     while (i < ss)
     {

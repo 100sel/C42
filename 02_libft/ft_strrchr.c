@@ -8,11 +8,14 @@ char    *ft_strrchr(const char *s, int c)
 
     ss = ft_strlen(s);
     i = 0;
-    p = 0;
+    p = "\0";
 
     while (i < ss)
+    {
         if (s[i] == c)
-            p = (char *)(s + i++);
+            p = (char *)(s + i);
+        i++;
+    }
 
     return p;
 }
