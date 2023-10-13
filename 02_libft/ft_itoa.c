@@ -21,6 +21,9 @@ char *ft_itoa(int n)
     }
 
     i = 0;
+    
+    if (nbr == 0)
+        return "0";
 
     while (nbr)
     {
@@ -37,11 +40,12 @@ char *ft_itoa(int n)
     if (neg)
     {
         ret[j++] = neg;
+        i--;
     }
 
-    while (i > 0)
+    while (i >= 0)
     {
-        ret[j++] = b[--i] + '0';
+        ret[j++] = b[i--] + '0';
     }
 
     ret[j] = '\0';
