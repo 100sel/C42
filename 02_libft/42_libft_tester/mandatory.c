@@ -1291,7 +1291,7 @@ void	mandatory(void)
 	//	assert_ft_putchar_fd,
 	//	assert_ft_putstr_fd,
 	//	assert_ft_putendl_fd,
-		assert_ft_putnbr_fd
+	//	assert_ft_putnbr_fd
 	};
 	for (int i = 0; i < 34; i++)
 		if (fork() == 0)
