@@ -66,32 +66,48 @@ char **ft_split(char const *s, char c)
 */
 char **ft_split(char const *s, char c)
 {
-    int  i;
-    int  j;
-    int  count_ret;
-    char **ret;
+    int     i;
+    int     j;
+    int     k;
+    int     start;
+    int     count_s;
+    char    **arr_p_s;
 
-    count_ret   = 0;
-    i           = 0;
-
-    while (s[i])
-    {
-        if (s[i] == c && s[i + 1] != c)
-            count_ret++;
-        i++;
-    }
-
-    ret = malloc(sizeof(char *) * (count_ret + 1));
-    i   = 0;
-    j   = 0;
+    i       = 0;
+    count_s = 0;
 
     while (s[i])
     {
-        if (s[i] == c && s[i + 1] != c)
-            ret[j++] = (char *)(s + i + 1);
-        i++;
+        while(s[i] == c)
+            i++;
+        if (s[i] != c)
+            count_s++;
+        while (s[i] != c)
+            i++;
     }
-    ret[j] = 0;
 
-    return ret;
+    arr_p_s = malloc(sizeof(char *) * (count_s + 1) );
+    i       = 0;
+    j       = 0;
+    k       = 0;
+
+    while (s[i])
+    {
+        while (s[i] == c)
+            i++;
+        if (s[i] != c)
+        {
+            start = i;
+            while (s[i] != c)
+                count_s++;
+            arr_p_s[j] = malloc(count_s + 1);
+            i = start;
+            while (s[i] != c)
+                arr_p_s[j][k++] = s[i++];
+            arr_p_s[j][k] = '\0';
+            j++;
+        }
+    }
+
+    return arr_p_s;
 }
