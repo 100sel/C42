@@ -24,7 +24,7 @@ int ft_atoi(const char *s)
     j       = size;
 
     while (i <= size)
-        res += (int)(s[i]) * (power(10, j));
+        res += (int)(s[i++]) * (power(10, j));
     
     return res;
 }
