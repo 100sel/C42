@@ -3,7 +3,7 @@
 char    *ft_strrchr(const char *s, int c)
 {
     if (c == 0)
-        return c;
+        return "\0";
     int     i;
     int     ss;
     char    *p;
