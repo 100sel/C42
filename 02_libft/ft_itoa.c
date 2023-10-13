@@ -3,7 +3,7 @@
 char *ft_itoa(int n)
 {
     char *ret;
-    int nbr;
+    long int nbr;
     char neg;
     int b[10];
     int i;
