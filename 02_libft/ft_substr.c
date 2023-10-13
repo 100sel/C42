@@ -2,9 +2,6 @@
 
 char *ft_substr(char const *s, unsigned int start, size_t len) 
 {
-    if (start > (unsigned int) len)
-        return "\0";
-
     char    *ret;
     int     i;
     int     j;
@@ -13,7 +10,13 @@ char *ft_substr(char const *s, unsigned int start, size_t len)
     i = start;
     j = 0;
 
-    while (s[i])
+    if (start > ft_strlen(s))
+    {
+        ret[0] = '\0';
+        return ret;
+    }
+
+    while (s[i] && j < (int)len)
         ret[j++] = s[i++];
 
     ret[j] = '\0';
