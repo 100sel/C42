@@ -32,7 +32,7 @@ void    ft_putnbr_fd(int n, int fd);
 char    *ft_itoa(int n);
 int     ft_atoi(const char *s);
 char    *ft_ptox(void *ptr);
-char    *ft_ftoa(float f);
+char    *ft_ftoa(float f, int prec);
 int     ft_isalpha(int c);
 int     ft_isdigit(int c);
 int     ft_isalnum(int c);

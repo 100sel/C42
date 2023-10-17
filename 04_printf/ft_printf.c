@@ -53,10 +53,10 @@ int ft_printf(const char *str, ...)
                 write(1, argp, 17);
                 free(argp);
                 break;
-            case 'd':
-                char *argd = ft_ftoa((float)(va_arg(args, double)));
-                write(1, argd, ft_strlen(argd));
-                free(argd);
+            case 'f':
+                char *argf = ft_ftoa((float)(va_arg(args, double)), 2);
+                write(1, argf, ft_strlen(argf));
+                free(argf);
                 break;
             case 'i':
                 char *argi = ft_itoa(va_arg(args, int));
@@ -79,11 +79,10 @@ int ft_printf(const char *str, ...)
 #include <stdio.h>
 int main(void)
 {
-    ft_printf("testing this bitch\n");
     int *n = malloc(1);
     n[0] = 42;
-    ft_printf("testing %c %s %i%% %p\n", 'b', "bitch", 42, n);
-    printf("testing %c %s %i%% %p\n", 'b', "bitch", 42, n);
+    ft_printf("testing %f\n", 42.42);
+    printf("testing %f\n", 42.42);
     free(n);
     return 0;
 }
