@@ -74,7 +74,7 @@ int main(int argc, char **argv)
         sendchar(str[i], pid); 
     sendchar('\0', pid); 
 
-    usleep(4000);
+    usleep(1000);
 
 	return 0;
 }

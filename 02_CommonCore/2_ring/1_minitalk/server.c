@@ -2,7 +2,7 @@
 
 int BIT_VALUE = -1;
 
-void sigusr_hdl(int sig, siginfo_t *info, void *ucontext)
+void sigusr_hdl(int sig)//, siginfo_t *info, void *ucontext)
 {
     if (sig == SIGUSR1)
         BIT_VALUE = 0;
@@ -26,12 +26,12 @@ int main(void)
     printf("%d\n", getpid());
 
     struct sigaction sa;
-    sa.sa_sigaction = &sigusr_hdl;
-    sa.sa_flags = SA_SIGINFO;
+    sa.sa_handler = &sigusr_hdl;
+    sa.sa_flags = 0;//SA_SIGINFO;
 
-    sigemptyset(&sa.sa_mask);
-    sigaddset(&sa.sa_mask, SIGUSR1);
-    sigaddset(&sa.sa_mask, SIGUSR2);
+    //sigemptyset(&sa.sa_mask);
+    //sigaddset(&sa.sa_mask, SIGUSR1);
+    //sigaddset(&sa.sa_mask, SIGUSR2);
 
     sigaction(SIGUSR1, &sa, NULL);
     sigaction(SIGUSR2, &sa, NULL);
