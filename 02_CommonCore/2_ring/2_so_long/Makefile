@@ -1,0 +1,26 @@
+.PHONY: all clean fclean re
+
+SRCS = ${wildcard *.c}
+OBJS = ${SRCS:.c=.o}
+LIBS = -L/usr/local/lib -lmlx -lX11 -lXext
+
+NAME = so_long
+
+COMP = gcc
+FLAG = -g -Wall -Werror -Wextra
+
+.c.o: 
+		${COMP} ${FLAG} -c $< -o $@
+
+${NAME}: ${OBJS}
+		${COMP} -o ${NAME} ${OBJS} ${LIBS}
+
+all:	${NAME}
+
+clean: 
+	rm -f ${OBJS}
+
+fclean: clean
+	rm -f ${NAME}
+
+re:		fclean all
