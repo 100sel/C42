@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re mck
 
 SRCS = ${wildcard *.c}
 OBJS = ${SRCS:.c=.o}
@@ -25,3 +25,7 @@ fclean: clean
 	rm -f ${NAME}
 
 re:		fclean all
+
+mck: 	
+		valgrind --leak-check=full --show-leak-kinds=all ./${NAME}
+		

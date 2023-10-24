@@ -19,6 +19,8 @@ typedef struct s_image {
     int  bits_per_pixel;
     int  line_length;
     int  endian;
+    int  width;
+    int  height;
 }           t_image;
 
 
@@ -26,6 +28,8 @@ typedef struct s_data {
     void    *display;
     void    *window;
     t_image *image;
+    t_image *bg;
+    t_image *player;
 }           t_data;
 
 
@@ -38,36 +42,71 @@ int     encode_rgb(byte red, byte green, byte blue)
 }
 
 
-void    ft_pixel_put(t_image *image, int x, int y, int color)
+void    pixel_put(t_image *image, unsigned int x, int y, int pixel)
 {
     int offset;
     offset = (y * image->line_length) + (x * (image->bits_per_pixel / 8));
 
-    *((unsigned int *)(image->pixels + offset)) = color;
+    *(int *)(image->pixels + offset) = pixel;
+}
+
+unsigned int   pixel_get(t_image *img, int x, int y)
+{
+    int offset;
+
+    offset = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
+    return *(unsigned int *)(img->pixels + offset);
 }
 
 
-void    drawer(t_data *data, int color)
+void    draw_bg(t_image *image, t_image *sprite, int width, int height)
 {
-    int start = WIDTH / 2 - 1;
-    int end = WIDTH / 2 + 1;
+    int  pixel;
+    int  y_counter;
+    int  x_counter;
 
-    for (int y = HEIGHT * 0.1; y < HEIGHT; ++y)
+    y_counter = 0;
+    x_counter = 0;
+
+    for (int y = 0; y < HEIGHT; ++y)
     {
-        if (y < HEIGHT / 2)
+        if (y_counter >= height)
+            y_counter = 0;
+
+        for (int x = 0; x < WIDTH; ++x)
         {
-        for (int x = start; x < end; ++x)
-            ft_pixel_put(data->image, x, y, color); 
-        start--;
-        end++;
+            if (x_counter >= width)
+                x_counter = 0;
+
+            pixel = pixel_get(sprite, x_counter, y_counter);
+            pixel_put(image, x, y, pixel); 
+            x_counter++;
         }
-        else 
+        y_counter++;
+    }
+}
+
+
+void    draw_player(t_image *image, t_image *sprite, int width, int height)
+{
+    unsigned int pixel;
+    int x_cnt;
+    int y_cnt;
+
+    x_cnt = 0;
+    y_cnt = 0;
+
+    for (int y = WIDTH / 2; y_cnt < height; ++y)
+    {
+        for (int x = HEIGHT / 2; x_cnt < width; ++x)
         {
-        for (int x = start; x < end ; ++x)
-            ft_pixel_put(data->image, x, y, color);
-        start++;
-        end--;
+            pixel = pixel_get(sprite, x_cnt, y_cnt);
+            if (pixel != 0xFF000000)
+                pixel_put(image, x, y, pixel); 
+            x_cnt++;
         }
+        x_cnt = 0;
+        y_cnt++;
     }
 }
 
@@ -78,11 +117,19 @@ void    drawer(t_data *data, int color)
 int     cleaner(t_data *data)
 {
     mlx_destroy_image(data->display, data->image->structure);
+    mlx_destroy_image(data->display, data->bg->structure);
+    mlx_destroy_image(data->display, data->player->structure);
+
     mlx_destroy_window(data->display, data->window);
     mlx_destroy_display(data->display);
+
     free(data->image);
+    free(data->bg);
+    free(data->player);
+
     free(data->display);
     free(data);
+
     return 0;
 }
 
@@ -115,23 +162,23 @@ t_data  *init(void)
     void    *window;
     t_data  *data;
     t_image *image;
+    t_image *bg;
+    t_image *player;
+    char    *path_bg = "./textures/floor.xpm";
+    char    *path_player = "./textures/player.xpm";
 
     data = malloc(sizeof(t_data));
-    if (!data)
-        exit(MALLOC_ERROR);
-
     image = malloc(sizeof(t_image));    
-    if (!image)
-    {
-        free(data);
-        exit(MALLOC_ERROR);
-    }
+    bg = malloc(sizeof(t_image));
+    player = malloc(sizeof(t_image));
 
     display  = mlx_init();
     if (!display)
     {
         free(data);
         free(image);
+        free(bg);
+        free(player);
         exit(MALLOC_ERROR);
     }
 
@@ -140,6 +187,8 @@ t_data  *init(void)
     {
         free(data);
         free(image);
+        free(bg);
+        free(player);
         mlx_destroy_display(display);
         free(display);
         exit(MALLOC_ERROR);
@@ -148,10 +197,24 @@ t_data  *init(void)
     image->structure = mlx_new_image(display, WIDTH, HEIGHT);
     image->pixels    = mlx_get_data_addr(image->structure, 
             &image->bits_per_pixel, &image->line_length, &image->endian);
+     
+    bg->structure    = mlx_xpm_file_to_image(display, path_bg, &bg->width, &bg->height);
+    bg->pixels       = mlx_get_data_addr(bg->structure, 
+            &bg->bits_per_pixel, &bg->line_length, &bg->endian);
+
+
+    player->structure    = mlx_xpm_file_to_image(display, path_player, &player->width, &player->height);
+    player->pixels       = mlx_get_data_addr(player->structure, 
+            &player->bits_per_pixel, &player->line_length, &player->endian);
 
     data->display    = display;
     data->window     = window;
     data->image      = image;
+    data->bg         = bg;
+    data->player     = player;
+
+    draw_bg(image, bg, bg->width, bg->height);
+    draw_player(image, player, player->width, player->height);
 
     return data;
 }
@@ -167,15 +230,7 @@ int     main(void)
     mlx_key_hook(data->window, handler_key, data);
     mlx_hook(data->window, 17, (1L<<17), destroy_hdl, data);
 
-    void *image;
-    char *path = "./textures/floor.png";
-    int  img_width;
-    int  img_height;
-
-    image = mlx_xpm_file_to_image(data->display, path, &img_width, &img_height);
-    //drawer(data, encode_rgb(0, 255, 0));
-    //mlx_put_image_to_window(data->display, data->window, data->image->structure, 0, 0);
-    mlx_put_image_to_window(data->display, data->window, image, WIDTH / 2, HEIGHT / 2);
+    mlx_put_image_to_window(data->display, data->window, data->image->structure, 0, 0);
     mlx_loop(data->display);
 
     cleaner(data);
