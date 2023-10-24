@@ -2,12 +2,13 @@
 
 SRCS = ${wildcard *.c}
 OBJS = ${SRCS:.c=.o}
-LIBS = -L/usr/local/lib -lmlx -lX11 -lXext
+
+LIBS = -L/usr/local/lib -lmlx -lXext -lX11 
 
 NAME = so_long
 
 COMP = gcc
-FLAG = -g -Wall -Werror -Wextra
+FLAG = -g
 
 .c.o: 
 		${COMP} ${FLAG} -c $< -o $@
