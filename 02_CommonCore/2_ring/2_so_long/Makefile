@@ -8,7 +8,7 @@ LIBS = -L/usr/local/lib -lmlx -lXext -lX11
 NAME = so_long
 
 COMP = gcc
-FLAG = -g
+FLAG = -g -Wall -Werror -Wextra
 
 .c.o: 
 		${COMP} ${FLAG} -c $< -o $@

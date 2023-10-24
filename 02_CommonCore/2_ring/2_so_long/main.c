@@ -77,11 +77,12 @@ void    drawer(t_data *data, int color)
 
 int     cleaner(t_data *data)
 {
+    mlx_destroy_image(data->display, data->image->structure);
     mlx_destroy_window(data->display, data->window);
     mlx_destroy_display(data->display);
-    free(data->image->pixels);
     free(data->image);
     free(data->display);
+    free(data);
     return 0;
 }
 
@@ -108,41 +109,76 @@ int     destroy_hdl(t_data *data)
 
 
 
-int     main(void)
+t_data  *init(void)
 {
     void    *display;
     void    *window;
-    t_data  data;
-    t_image image;
+    t_data  *data;
+    t_image *image;
+
+    data = malloc(sizeof(t_data));
+    if (!data)
+        exit(MALLOC_ERROR);
+
+    image = malloc(sizeof(t_image));    
+    if (!image)
+    {
+        free(data);
+        exit(MALLOC_ERROR);
+    }
 
     display  = mlx_init();
     if (!display)
-        return MALLOC_ERROR;
+    {
+        free(data);
+        free(image);
+        exit(MALLOC_ERROR);
+    }
 
     window   = mlx_new_window(display, WIDTH, HEIGHT, NAME);
     if (!window)
     {
+        free(data);
+        free(image);
         mlx_destroy_display(display);
         free(display);
-        return MALLOC_ERROR;
+        exit(MALLOC_ERROR);
     }
 
-    image.structure = mlx_new_image(display, WIDTH, HEIGHT);
-    image.pixels    = mlx_get_data_addr(image.structure, 
-            &image.bits_per_pixel, &image.line_length, &image.endian);
+    image->structure = mlx_new_image(display, WIDTH, HEIGHT);
+    image->pixels    = mlx_get_data_addr(image->structure, 
+            &image->bits_per_pixel, &image->line_length, &image->endian);
 
-    data.display    = display;
-    data.window     = window;
-    data.image      = &image;
+    data->display    = display;
+    data->window     = window;
+    data->image      = image;
 
-    mlx_key_hook(window, handler_key, &data);
-    mlx_hook(window, 17, (1L<<17), destroy_hdl, &data);
-    drawer(&data, encode_rgb(0, 255, 0));
-    mlx_put_image_to_window(display, window, image.structure, 0, 0);
+    return data;
+}
 
-    mlx_loop(display);
 
-    cleaner(&data);
+
+
+
+int     main(void)
+{
+    t_data *data= init();
+
+    mlx_key_hook(data->window, handler_key, data);
+    mlx_hook(data->window, 17, (1L<<17), destroy_hdl, data);
+
+    void *image;
+    char *path = "./textures/floor.png";
+    int  img_width;
+    int  img_height;
+
+    image = mlx_xpm_file_to_image(data->display, path, &img_width, &img_height);
+    //drawer(data, encode_rgb(0, 255, 0));
+    //mlx_put_image_to_window(data->display, data->window, data->image->structure, 0, 0);
+    mlx_put_image_to_window(data->display, data->window, image, WIDTH / 2, HEIGHT / 2);
+    mlx_loop(data->display);
+
+    cleaner(data);
 
     return 0;
 }
