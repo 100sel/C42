@@ -8,7 +8,7 @@ void freeZ(int count, ...)
     for (int i = 0; i < count; i++)
     {
         void *ptr = va_arg(args, void*);
-        free(ptr)
+        free(ptr);
     }
 }
 
@@ -19,12 +19,12 @@ int     cleaner(t_data *data)
     mlx_destroy_image(data->display, data->wall->structure);
     mlx_destroy_image(data->display, data->coin->structure);
     mlx_destroy_image(data->display, data->player->structure);
-    mlx_destroy_image(data->display, data->exit->structure);
+    mlx_destroy_image(data->display, data->stairs->structure);
 
     mlx_destroy_window(data->display, data->window);
     mlx_destroy_display(data->display);
 
-    freeZ(8, data->canvas, data->floor, data->wall, data->coin, data->player, data->exit, 
+    freeZ(8, data->canvas, data->floor, data->wall, data->coin, data->player, data->stairs, 
             data->display, data);
 
     return 0;

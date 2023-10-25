@@ -2,6 +2,7 @@
 #include <X11/keysym.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 #define MALLOC_ERROR    1
 #define WIDTH           1280
@@ -34,7 +35,7 @@ typedef struct s_data {
     t_image *wall;
     t_image *coin;
     t_image *player;
-    t_image *exit;
+    t_image *stairs;
 }               t_data;
 
 t_data          *init_data(void);
@@ -44,7 +45,7 @@ int             cleaner(t_data *data);
 
 unsigned int    pixel_get(t_image *img, int x, int y);
 void            pixel_put(t_image *image, int x, int y, unsigned int pixel); 
-int             get_sprite(void *display, char *path, t_image *sprite);
+void            get_sprite(void *display, char *path, t_image *sprite);
 void            draw_sprite(t_image *canvas, t_image *sprite, 
         int x_start, int y_start, int width, int height);
 

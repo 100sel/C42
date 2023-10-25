@@ -11,13 +11,13 @@ t_data  *init_data(void)
     t_image *wall;
     t_image *coin;
     t_image *player;
-    t_image *exit;
+    t_image *stairs;
 
     char    *path_floor = "./textures/floor.xpm";
     char    *path_wall= "./textures/wall.xpm";
     char    *path_coin = "./textures/coin.xpm";
     char    *path_player = "./textures/player.xpm";
-    char    *path_exit = "./textures/exit.xpm";
+    char    *path_stairs = "./textures/stairs.xpm";
 
     data = malloc(sizeof(t_data));
     canvas = malloc(sizeof(t_image));    
@@ -25,12 +25,12 @@ t_data  *init_data(void)
     wall = malloc(sizeof(t_image));
     coin = malloc(sizeof(t_image));
     player = malloc(sizeof(t_image));
-    exit = malloc(sizeof(t_image));
+    stairs = malloc(sizeof(t_image));
 
     display  = mlx_init();
     if (!display)
     {
-        freeZ(7, data, canvas, floor, wall, coin, player, exit);
+        freeZ(7, data, canvas, floor, wall, coin, player, stairs);
         exit(MALLOC_ERROR);
     }
 
@@ -38,7 +38,7 @@ t_data  *init_data(void)
     if (!window)
     {
         mlx_destroy_display(display);
-        freeZ(8,canvas, floor, wall, coin, player, exit, display, data);
+        freeZ(8,canvas, floor, wall, coin, player, stairs, display, data);
         exit(MALLOC_ERROR);
     }
 
@@ -50,7 +50,7 @@ t_data  *init_data(void)
     get_sprite(display, path_wall, wall); 
     get_sprite(display, path_coin, coin); 
     get_sprite(display, path_player, player); 
-    get_sprite(display, path_exit, exit); 
+    get_sprite(display, path_stairs, stairs); 
 
     data->display   = display;
     data->window    = window;
@@ -59,7 +59,7 @@ t_data  *init_data(void)
     data->wall      = wall;
     data->coin      = coin;
     data->player    = player;
-    data->exit      = exit;
+    data->stairs    = stairs;
 
     return data;
 }

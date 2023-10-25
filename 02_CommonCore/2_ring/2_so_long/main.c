@@ -10,7 +10,7 @@ int     main(void)
     draw_sprite(data->canvas, data->player, 
             WIDTH / 2, HEIGHT / 2, data->player->width, data->player->height);  
 
-    mlx_put_image_to_window(data->display, data->window, data->image->structure, 0, 0);
+    mlx_put_image_to_window(data->display, data->window, data->canvas->structure, 0, 0);
     mlx_loop(data->display);
 
     cleaner(data);

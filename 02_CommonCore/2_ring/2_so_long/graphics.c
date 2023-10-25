@@ -12,7 +12,7 @@ void get_sprite(void *display, char *path, t_image *sprite)
             &sprite->bits_per_pixel, &sprite->line_length, &sprite->endian);
 }
 
-void    pixel_put(t_image *image, unsigned int x, int y, int pixel)
+void    pixel_put(t_image *image, int x, int y, unsigned int pixel)
 {
     int offset;
     offset = (y * image->line_length) + (x * (image->bits_per_pixel / 8));
