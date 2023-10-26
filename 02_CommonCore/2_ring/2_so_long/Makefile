@@ -27,6 +27,9 @@ fclean: clean
 
 re:		fclean all
 
+run: 	
+		./${NAME} ${MAP}
+
 mck: 	
 		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --read-var-info=yes ./${NAME} ${MAP}
 

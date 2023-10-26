@@ -150,6 +150,8 @@ t_map   *get_map(char *path)
     map->tiles   = tiles;
     map->width   = width * SPRITE_RES;
     map->height  = y * SPRITE_RES;
+    map->player  = player_pos;
+    map->coins   = coin_flag;
 
     if (!err_flag)
     {

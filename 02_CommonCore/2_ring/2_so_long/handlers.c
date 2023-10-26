@@ -51,16 +51,63 @@ void     cleaner(t_data *data)
 int     frame_hdl(t_data *data)
 {
     if (render(data))
-    {
-        printf("RENDERING");
         mlx_put_image_to_window(data->display, data->window, data->bg->structure, 0, 0);
-    }
+
     return 0;
 }
 
-void    move_hdl(int keysym, t_data *data)
+void    move_hdl(char dir, t_data *data)
 {
+    t_map  *map;
+    t_tile *old_pos;
+    t_tile *new_pos;
 
+    map = data->map;
+    old_pos = data->map->player;
+
+    switch(dir) 
+    {
+        case 'z': 
+                new_pos = &map->tiles[map->player->y - 1][map->player->x];
+            break;
+
+        case 'q':
+                new_pos = &map->tiles[map->player->y][map->player->x - 1];
+            break;
+
+        case 's':
+                new_pos = &map->tiles[map->player->y + 1][map->player->x];
+            break;
+
+        case 'd':
+                new_pos = &map->tiles[map->player->y][map->player->x + 1];
+            break;
+
+        default:
+            break;
+    }
+    
+    if (new_pos->type == '1')
+        return;
+
+    printf("%d\n", ++data->move_cnt);
+
+    if (new_pos->type == 'E' && !map->coins)
+    {
+        cleaner(data);
+        exit(0);
+    }
+
+    if (new_pos->type == 'C')
+        map->coins--;
+
+    new_pos->type  = 'P';
+    new_pos->dirty = 1;
+
+    old_pos->type  = '0';
+    old_pos->dirty = 1;
+
+    map->player = new_pos;
 }
 
 int     key_hdl(int keysym, t_data *data)
@@ -71,8 +118,14 @@ int     key_hdl(int keysym, t_data *data)
         exit(0);
     }
 
-    if (keysym == XK_z || keysym == XK_q || keysym == XK_s || keysym == XK_d)
-        move_hdl(keysym, data);
+    if (keysym == XK_z)
+        move_hdl('z', data);
+    if (keysym == XK_q)
+        move_hdl('q', data);
+    if (keysym == XK_s)
+        move_hdl('s', data);
+    if (keysym == XK_d)
+        move_hdl('d', data);
     return 0;
 }
 

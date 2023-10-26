@@ -63,6 +63,7 @@ t_data  *get_assets(t_map *map)
     data->player    = player;
     data->stairs    = stairs;
     data->map       = map;
+    data->move_cnt  = 0;
 
     return data;
 }

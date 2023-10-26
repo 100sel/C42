@@ -25,6 +25,8 @@ typedef struct s_map {
     t_tile **tiles;
     int width;
     int height;
+    t_tile *player;
+    int coins;
 }               t_map;
 
 typedef struct s_image {
@@ -47,6 +49,7 @@ typedef struct s_data {
     t_image *player;
     t_image *stairs;
     t_map   *map;
+    int     move_cnt;
 }               t_data;
 
 t_data          *get_assets(t_map *map);
@@ -68,7 +71,7 @@ void            draw_sprite(t_image *canvas, t_image *sprite,
 void            draw_tile(void *display, t_data *data, int x, int y);
 int             render(t_data *data);
 
-void            move_hdl(int keysym, t_data *data);
+void            move_hdl(char dir, t_data *data);
 int             frame_hdl(t_data *data);
 int             key_hdl(int keysym, t_data *data);
 int             destroy_hdl(t_data *data);
