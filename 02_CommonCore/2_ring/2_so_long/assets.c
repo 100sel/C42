@@ -6,7 +6,10 @@ t_data  *get_assets(int width, int height)
     void    *window = NULL;
     t_data  *data = NULL;
 
-    t_image *canvas = NULL;
+    t_image *bg = NULL;
+    t_image *coin_lyr = NULL;
+    t_image *player_lyr = NULL;
+
     t_image *floor = NULL;
     t_image *wall = NULL;
     t_image *coin = NULL;
@@ -20,7 +23,9 @@ t_data  *get_assets(int width, int height)
     char    *path_stairs = "./textures/stairs.xpm";
 
     data = malloc(sizeof(t_data));
-    canvas = malloc(sizeof(t_image));    
+    bg = malloc(sizeof(t_image));    
+    coin_lyr = malloc(sizeof(t_image));
+    player_lyr = malloc(sizeof(t_image));
     floor = malloc(sizeof(t_image));
     wall = malloc(sizeof(t_image));
     coin = malloc(sizeof(t_image));
@@ -30,7 +35,7 @@ t_data  *get_assets(int width, int height)
     display  = mlx_init();
     if (!display)
     {
-        freeZ(7, data, canvas, floor, wall, coin, player, stairs);
+        freeZ(7, data, bg, floor, wall, coin, player, stairs);
         exit(ERROR_);
     }
 
@@ -38,13 +43,13 @@ t_data  *get_assets(int width, int height)
     if (!window)
     {
         mlx_destroy_display(display);
-        freeZ(8,canvas, floor, wall, coin, player, stairs, display, data);
+        freeZ(8,bg, floor, wall, coin, player, stairs, display, data);
         exit(ERROR_);
     }
 
-    canvas->structure = mlx_new_image(display, width, height);
-    canvas->pixels    = mlx_get_data_addr(canvas->structure, 
-            &canvas->bits_per_pixel, &canvas->line_length, &canvas->endian);
+    make_layer(display, bg, width, height); 
+    make_layer(display, coin_lyr, width, height);
+    make_layer(display, player_lyr, width, height);
 
     get_sprite(display, path_floor, floor); 
     get_sprite(display, path_wall, wall); 
@@ -54,7 +59,9 @@ t_data  *get_assets(int width, int height)
 
     data->display   = display;
     data->window    = window;
-    data->canvas    = canvas;
+    data->bg        = bg;
+    data->coin_lyr  = coin_lyr;
+    data->player_lyr = player_lyr;
     data->floor     = floor;
     data->wall      = wall;
     data->coin      = coin;

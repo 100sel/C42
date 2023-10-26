@@ -24,6 +24,7 @@ t_map   *get_map(char *path)
     int     coin_flag;
     int     width;
     int     read_cnt;
+    t_tile  *player_pos;
     int     err_flag;
     char    *err_msg = NULL;
 
@@ -108,7 +109,10 @@ t_map   *get_map(char *path)
         }
 
         if (buffer == 'P')
+        {
             player_flag++;
+            player_pos = &tiles[y][x];
+        }
 
         if (buffer == 'E')
             stairs_flag++;
@@ -141,6 +145,19 @@ t_map   *get_map(char *path)
             err_msg = "Map must have 1 starting position, 1 exit and at least 1 coin";
         }
     }
+    
+    map->tiles   = tiles;
+    map->width   = width * SPRITE_RES;
+    map->height  = y * SPRITE_RES;
+
+    if (!err_flag)
+    {
+        if (!find_exit(map, player_pos->x, player_pos->y))
+        {
+           err_flag++;
+           err_msg = "Map must have a valid path";
+        }
+    }
 
     if (err_flag)
     {
@@ -150,9 +167,6 @@ t_map   *get_map(char *path)
         exit(ERROR_);
     }
 
-    map->tiles   = tiles;
-    map->width   = width * SPRITE_RES;
-    map->height  = (y - 1) * SPRITE_RES;
 
     close(fd);
     

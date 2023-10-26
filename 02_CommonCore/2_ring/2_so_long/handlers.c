@@ -33,7 +33,10 @@ void    map_cleaner(t_map *map)
 
 void     cleaner(t_data *data)
 {
-    mlx_destroy_image(data->display, data->canvas->structure);
+    mlx_destroy_image(data->display, data->bg->structure);
+    mlx_destroy_image(data->display, data->coin_lyr->structure);
+    mlx_destroy_image(data->display, data->player_lyr->structure);
+
     mlx_destroy_image(data->display, data->floor->structure);
     mlx_destroy_image(data->display, data->wall->structure);
     mlx_destroy_image(data->display, data->coin->structure);
@@ -44,17 +47,11 @@ void     cleaner(t_data *data)
     mlx_destroy_display(data->display);
     map_cleaner(data->map);
 
-    freeZ(8, data->canvas, data->floor, data->wall, data->coin, data->player, data->stairs, 
+    freeZ(10, data->bg, data->coin_lyr, data->player_lyr, data->floor, data->wall, data->coin, data->player, data->stairs, 
             data->display, data);
 }
 
-int     frame_hdl(t_data *data)
-{
-    for (int y = 0; y < (data->map->height / SPRITE_RES); y++)
-        for (int x = 0; x < (data->map->width / SPRITE_RES); x++)
-            draw_tile(data, x, y);
-    return 0;
-}
+int     frame_hdl(t_data *data);
 
 int     key_hdl(int keysym, t_data *data)
 {

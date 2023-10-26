@@ -12,6 +12,13 @@ void get_sprite(void *display, char *path, t_image *sprite)
             &sprite->bits_per_pixel, &sprite->line_length, &sprite->endian);
 }
 
+void make_layer(void *display, t_image *layer, int width, int height)
+{
+    layer->structure = mlx_new_image(display, width, height);
+    layer->pixels    = mlx_get_data_addr(layer->structure, 
+            &layer->bits_per_pixel, &layer->line_length, &layer->endian);
+}
+
 void    pixel_put(t_image *image, int x, int y, unsigned int pixel)
 {
     int offset;
@@ -43,35 +50,87 @@ void    draw_sprite(t_image *canvas, t_image *sprite, int x_start, int y_start, 
     }
 }
 
-void    draw_tile(t_data *data, int x, int y)
+void    draw_tile(void *canvas, t_data *data, int x, int y)
 {
+    t_image *sprite = NULL;
     switch (data->map->tiles[y][x].type)
     {
         case '0':
-
+            sprite = data->floor;
+            draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
+                    sprite->width, sprite->height);  
             break;
 
         case '1':
-
+            sprite = data->wall;
+            draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
+                    sprite->width, sprite->height);  
             break;
 
         case 'C':
-
+            sprite = data->coin;
+            draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
+                    sprite->width, sprite->height);  
             break;
 
         case 'P':
-            printf("There is a player !");
-            draw_sprite(data->canvas, data->player, 
-                    x * SPRITE_RES, y * SPRITE_RES, data->player->width, data->player->height);  
+            sprite = data->player;
+            draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
+                    sprite->width, sprite->height);  
             break;
 
         case 'E':
-
+            sprite = data->stairs;
+            draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
+                    sprite->width, sprite->height);  
             break;
 
         default:
             break;
     }
+}
+
+void    draw_bg(t_data *data)
+{
+    for (int y = 0; y < data->map->height / SPRITE_RES; y++)
+    {
+        for (int x = 0; x < data->map->width / SPRITE_RES; x++)
+        {
+            t_tile  *tile = &data->map->tiles[y][x];
+            char    old_type = 0;
+
+            if (tile->type == 'P' || tile->type == 'C')
+            {
+                old_type = tile->type;
+                tile->type = '0';
+            }
+
+            draw_tile(data->bg, data, x, y);
+            tile->type = old_type;
+        }
+    }
+}
+
+void    draw_coin_lyr(t_data *data)
+{
+    for (int y = 0; y < data->map->height / SPRITE_RES; y++)
+        for (int x = 0; x < data->map->width / SPRITE_RES; x++)
+        {
+            t_tile  *tile = &data->map->tiles[y][x];
+            if (tile->type == 'C')
+                draw_tile(data->bg, data, x, y);
+        }
+}
+
+void    draw_player_lyr(t_data *data)
+{
+    for (int y = 0; y < data->map->height / SPRITE_RES; y++)
+        for (int x = 0; x < data->map->width / SPRITE_RES; x++)
+        {
+            t_tile  *tile = &data->map->tiles[y][x];
+            if (tile->type == 'P')
+                draw_tile(data->bg, data, x, y);
+        }
 }
 /*
 void    draw_bg(t_image *image, t_image *sprite, int width, int height)

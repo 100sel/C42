@@ -15,9 +15,11 @@ int     main(int argc, char **argv)
     mlx_key_hook(data->window, key_hdl, data);
     mlx_hook(data->window, 17, (1L<<17), destroy_hdl, data);
 //    mlx_loop_hook(data->display, frame_hdl, data); 
-    
-    frame_hdl(data);
-    mlx_put_image_to_window(data->display, data->window, data->canvas->structure, 0, 0);
+    draw_bg(data);   
+    draw_coin_lyr(data);
+    draw_player_lyr(data);
+    //frame_hdl(data);
+    mlx_put_image_to_window(data->display, data->window, data->bg->structure, 0, 0);
     mlx_loop(data->display);
 
     cleaner(data);
