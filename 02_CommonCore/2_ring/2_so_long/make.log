@@ -1,8 +1,0 @@
-handlers.c: In function ‘map_cleaner’:
-handlers.c:27:33: error: lvalue required as left operand of assignment
-   27 |             (map->tiles[i]) + j = NULL;
-      |                                 ^
-handlers.c:32:26: error: lvalue required as left operand of assignment
-   32 |         (map->tiles) + i = NULL;
-      |                          ^
-make: *** [Makefile:15: handlers.o] Error 1
