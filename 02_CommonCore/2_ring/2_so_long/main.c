@@ -13,9 +13,7 @@ int     main(int argc, char **argv)
 
     mlx_key_hook(data->window, key_hdl, data);
     mlx_hook(data->window, 17, (1L<<17), destroy_hdl, data);
-    //mlx_loop_hook(data->display, frame_hdl, data); 
-
-    frame_hdl(data);
+    mlx_loop_hook(data->display, frame_hdl, data); 
 
     mlx_loop(data->display);
 

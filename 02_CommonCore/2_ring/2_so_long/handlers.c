@@ -58,6 +58,11 @@ int     frame_hdl(t_data *data)
     return 0;
 }
 
+void    move_hdl(int keysym, t_data *data)
+{
+
+}
+
 int     key_hdl(int keysym, t_data *data)
 {
     if (keysym == XK_Escape)
@@ -65,6 +70,9 @@ int     key_hdl(int keysym, t_data *data)
         cleaner(data);
         exit(0);
     }
+
+    if (keysym == XK_z || keysym == XK_q || keysym == XK_s || keysym == XK_d)
+        move_hdl(keysym, data);
     return 0;
 }
 

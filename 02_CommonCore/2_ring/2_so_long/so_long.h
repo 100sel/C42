@@ -68,6 +68,7 @@ void            draw_sprite(t_image *canvas, t_image *sprite,
 void            draw_tile(void *display, t_data *data, int x, int y);
 int             render(t_data *data);
 
+void            move_hdl(int keysym, t_data *data);
 int             frame_hdl(t_data *data);
 int             key_hdl(int keysym, t_data *data);
 int             destroy_hdl(t_data *data);
