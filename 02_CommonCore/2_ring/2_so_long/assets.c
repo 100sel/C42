@@ -1,15 +1,11 @@
 #include "so_long.h"
 
-t_data  *get_assets(int width, int height)
+t_data  *get_assets(t_map *map)
 {
     void    *display = NULL;
     void    *window = NULL;
     t_data  *data = NULL;
-
     t_image *bg = NULL;
-    t_image *coin_lyr = NULL;
-    t_image *player_lyr = NULL;
-
     t_image *floor = NULL;
     t_image *wall = NULL;
     t_image *coin = NULL;
@@ -22,10 +18,14 @@ t_data  *get_assets(int width, int height)
     char    *path_player = "./textures/player.xpm";
     char    *path_stairs = "./textures/stairs.xpm";
 
+    int width;
+    int height;
+
+    width = map->width;
+    height = map->height;
+
     data = malloc(sizeof(t_data));
     bg = malloc(sizeof(t_image));    
-    coin_lyr = malloc(sizeof(t_image));
-    player_lyr = malloc(sizeof(t_image));
     floor = malloc(sizeof(t_image));
     wall = malloc(sizeof(t_image));
     coin = malloc(sizeof(t_image));
@@ -43,14 +43,11 @@ t_data  *get_assets(int width, int height)
     if (!window)
     {
         mlx_destroy_display(display);
-        freeZ(8,bg, floor, wall, coin, player, stairs, display, data);
+        freeZ(8 ,bg, floor, wall, coin, player, stairs, display, data);
         exit(ERROR_);
     }
 
     make_layer(display, bg, width, height); 
-    make_layer(display, coin_lyr, width, height);
-    make_layer(display, player_lyr, width, height);
-
     get_sprite(display, path_floor, floor); 
     get_sprite(display, path_wall, wall); 
     get_sprite(display, path_coin, coin); 
@@ -60,13 +57,12 @@ t_data  *get_assets(int width, int height)
     data->display   = display;
     data->window    = window;
     data->bg        = bg;
-    data->coin_lyr  = coin_lyr;
-    data->player_lyr = player_lyr;
     data->floor     = floor;
     data->wall      = wall;
     data->coin      = coin;
     data->player    = player;
     data->stairs    = stairs;
+    data->map       = map;
 
     return data;
 }

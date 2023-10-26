@@ -9,7 +9,7 @@
 #define ERROR_          1
 #define NAME            "so_long"
 #define MAX_SIZE        256
-#define SPRITE_RES      15
+#define SPRITE_RES      16
 
 typedef unsigned char byte;
 
@@ -18,6 +18,7 @@ typedef struct s_tile {
     int x;
     int y;
     int visited;
+    int dirty;
 }               t_tile;
 
 typedef struct s_map {
@@ -40,8 +41,6 @@ typedef struct s_data {
     void    *display;
     void    *window;
     t_image *bg;
-    t_image *coin_lyr;
-    t_image *player_lyr;
     t_image *floor;
     t_image *wall;
     t_image *coin;
@@ -50,7 +49,7 @@ typedef struct s_data {
     t_map   *map;
 }               t_data;
 
-t_data          *get_assets(int width, int height);
+t_data          *get_assets(t_map *map);
 
 void            freeZ(int count, ...);
 void            cleaner(t_data *data);
@@ -67,9 +66,7 @@ void            make_layer(void *display, t_image *layer, int x, int y);
 void            draw_sprite(t_image *canvas, t_image *sprite, 
         int x_start, int y_start, int width, int height);
 void            draw_tile(void *display, t_data *data, int x, int y);
-void            draw_bg(t_data *data);
-void            draw_coin_lyr(t_data *data);
-void            draw_player_lyr(t_data *data);
+int             render(t_data *data);
 
 int             frame_hdl(t_data *data);
 int             key_hdl(int keysym, t_data *data);

@@ -68,12 +68,18 @@ void    draw_tile(void *canvas, t_data *data, int x, int y)
             break;
 
         case 'C':
+            sprite = data->floor;
+            draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
+                    sprite->width, sprite->height);
             sprite = data->coin;
             draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
                     sprite->width, sprite->height);  
             break;
 
         case 'P':
+            sprite = data->floor;
+            draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
+                    sprite->width, sprite->height);
             sprite = data->player;
             draw_sprite(canvas, sprite, x * SPRITE_RES, y * SPRITE_RES,
                     sprite->width, sprite->height);  
@@ -88,99 +94,18 @@ void    draw_tile(void *canvas, t_data *data, int x, int y)
         default:
             break;
     }
+    data->map->tiles[y][x].dirty = 0;
 }
 
-void    draw_bg(t_data *data)
+int     render(t_data *data)
 {
+    int new = 0;
     for (int y = 0; y < data->map->height / SPRITE_RES; y++)
-    {
         for (int x = 0; x < data->map->width / SPRITE_RES; x++)
-        {
-            t_tile  *tile = &data->map->tiles[y][x];
-            char    old_type = 0;
-
-            if (tile->type == 'P' || tile->type == 'C')
+            if (data->map->tiles[y][x].dirty)
             {
-                old_type = tile->type;
-                tile->type = '0';
+                draw_tile(data->bg, data, x, y);
+                new++;
             }
-
-            draw_tile(data->bg, data, x, y);
-            tile->type = old_type;
-        }
-    }
+    return new;
 }
-
-void    draw_coin_lyr(t_data *data)
-{
-    for (int y = 0; y < data->map->height / SPRITE_RES; y++)
-        for (int x = 0; x < data->map->width / SPRITE_RES; x++)
-        {
-            t_tile  *tile = &data->map->tiles[y][x];
-            if (tile->type == 'C')
-                draw_tile(data->bg, data, x, y);
-        }
-}
-
-void    draw_player_lyr(t_data *data)
-{
-    for (int y = 0; y < data->map->height / SPRITE_RES; y++)
-        for (int x = 0; x < data->map->width / SPRITE_RES; x++)
-        {
-            t_tile  *tile = &data->map->tiles[y][x];
-            if (tile->type == 'P')
-                draw_tile(data->bg, data, x, y);
-        }
-}
-/*
-void    draw_bg(t_image *image, t_image *sprite, int width, int height)
-{
-    int  pixel;
-    int  y_counter;
-    int  x_counter;
-
-    y_counter = 0;
-    x_counter = 0;
-
-    for (int y = 0; y < HEIGHT; ++y)
-    {
-        if (y_counter >= height)
-            y_counter = 0;
-
-        for (int x = 0; x < WIDTH; ++x)
-        {
-            if (x_counter >= width)
-                x_counter = 0;
-
-            pixel = pixel_get(sprite, x_counter, y_counter);
-            pixel_put(image, x, y, pixel); 
-            x_counter++;
-        }
-        y_counter++;
-    }
-}
-
-void    draw_player(t_image *image, t_image *sprite, int width, int height)
-{
-    unsigned int pixel;
-    int x_cnt;
-    int y_cnt;
-
-    x_cnt = 0;
-    y_cnt = 0;
-
-    for (int y = WIDTH / 2; y_cnt < height; ++y)
-    {
-        for (int x = HEIGHT / 2; x_cnt < width; ++x)
-        {
-            pixel = pixel_get(sprite, x_cnt, y_cnt);
-            if (pixel != 0xFF000000)
-                pixel_put(image, x, y, pixel); 
-            x_cnt++;
-        }
-        x_cnt = 0;
-        y_cnt++;
-    }
-}
-*/
-

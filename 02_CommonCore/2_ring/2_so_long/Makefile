@@ -28,5 +28,7 @@ fclean: clean
 re:		fclean all
 
 mck: 	
-		valgrind --leak-check=full --show-leak-kinds=all ./${NAME} ${MAP}
-		
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --read-var-info=yes ./${NAME} ${MAP}
+
+mrep:
+		rm ${wildcard massif.out.*} && valgrind --tool=massif ./${NAME} ${MAP}

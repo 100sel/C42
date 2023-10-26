@@ -123,6 +123,7 @@ t_map   *get_map(char *path)
         tiles[y][x].type = buffer;
         tiles[y][x].x    = x;
         tiles[y][x].y    = y;
+        tiles[y][x].dirty = 1;
         x++;
     }
 

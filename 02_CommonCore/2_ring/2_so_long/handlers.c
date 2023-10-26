@@ -34,9 +34,6 @@ void    map_cleaner(t_map *map)
 void     cleaner(t_data *data)
 {
     mlx_destroy_image(data->display, data->bg->structure);
-    mlx_destroy_image(data->display, data->coin_lyr->structure);
-    mlx_destroy_image(data->display, data->player_lyr->structure);
-
     mlx_destroy_image(data->display, data->floor->structure);
     mlx_destroy_image(data->display, data->wall->structure);
     mlx_destroy_image(data->display, data->coin->structure);
@@ -47,11 +44,19 @@ void     cleaner(t_data *data)
     mlx_destroy_display(data->display);
     map_cleaner(data->map);
 
-    freeZ(10, data->bg, data->coin_lyr, data->player_lyr, data->floor, data->wall, data->coin, data->player, data->stairs, 
+    freeZ(8, data->bg, data->floor, data->wall, data->coin, data->player, data->stairs, 
             data->display, data);
 }
 
-int     frame_hdl(t_data *data);
+int     frame_hdl(t_data *data)
+{
+    if (render(data))
+    {
+        printf("RENDERING");
+        mlx_put_image_to_window(data->display, data->window, data->bg->structure, 0, 0);
+    }
+    return 0;
+}
 
 int     key_hdl(int keysym, t_data *data)
 {
