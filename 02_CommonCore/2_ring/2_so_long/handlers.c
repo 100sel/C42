@@ -1,6 +1,5 @@
 #include "so_long.h"
 
-
 void freeZ(int count, ...)
 {
     va_list args;
@@ -8,11 +7,31 @@ void freeZ(int count, ...)
     for (int i = 0; i < count; i++)
     {
         void *ptr = va_arg(args, void*);
+        if (!ptr)
+            continue;
         free(ptr);
+        ptr = NULL;
     }
 }
 
-int     cleaner(t_data *data)
+void    map_cleaner(t_map *map)
+{
+    for (int i = 0; i < MAX_SIZE; i++)
+    {
+        if (!map->tiles[i])
+            continue;
+        free(map->tiles[i]);
+        map->tiles[i] = NULL;
+    }
+
+    free(map->tiles);
+    map->tiles = NULL;
+
+    free(map);
+    map = NULL;
+}
+
+void     cleaner(t_data *data)
 {
     mlx_destroy_image(data->display, data->canvas->structure);
     mlx_destroy_image(data->display, data->floor->structure);
@@ -23,28 +42,33 @@ int     cleaner(t_data *data)
 
     mlx_destroy_window(data->display, data->window);
     mlx_destroy_display(data->display);
+    map_cleaner(data->map);
 
     freeZ(8, data->canvas, data->floor, data->wall, data->coin, data->player, data->stairs, 
             data->display, data);
+}
 
+int     frame_hdl(t_data *data)
+{
+    for (int y = 0; y < (data->map->height / SPRITE_RES); y++)
+        for (int x = 0; x < (data->map->width / SPRITE_RES); x++)
+            draw_tile(data, x, y);
     return 0;
 }
 
-
-int     handler_key(int keysym, t_data *data)
+int     key_hdl(int keysym, t_data *data)
 {
     if (keysym == XK_Escape)
     {
         cleaner(data);
         exit(0);
     }
-
     return 0;
 }
-
 
 int     destroy_hdl(t_data *data)
 {
     cleaner(data);
     exit(0);
+    return 0;
 }

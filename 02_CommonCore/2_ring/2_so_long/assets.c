@@ -1,17 +1,17 @@
 #include "so_long.h"
 
-t_data  *init_data(void)
+t_data  *get_assets(int width, int height)
 {
-    void    *display;
-    void    *window;
-    t_data  *data;
+    void    *display = NULL;
+    void    *window = NULL;
+    t_data  *data = NULL;
 
-    t_image *canvas;
-    t_image *floor;
-    t_image *wall;
-    t_image *coin;
-    t_image *player;
-    t_image *stairs;
+    t_image *canvas = NULL;
+    t_image *floor = NULL;
+    t_image *wall = NULL;
+    t_image *coin = NULL;
+    t_image *player = NULL;
+    t_image *stairs = NULL;
 
     char    *path_floor = "./textures/floor.xpm";
     char    *path_wall= "./textures/wall.xpm";
@@ -31,18 +31,18 @@ t_data  *init_data(void)
     if (!display)
     {
         freeZ(7, data, canvas, floor, wall, coin, player, stairs);
-        exit(MALLOC_ERROR);
+        exit(ERROR_);
     }
 
-    window   = mlx_new_window(display, WIDTH, HEIGHT, NAME);
+    window   = mlx_new_window(display, width, height, NAME);
     if (!window)
     {
         mlx_destroy_display(display);
         freeZ(8,canvas, floor, wall, coin, player, stairs, display, data);
-        exit(MALLOC_ERROR);
+        exit(ERROR_);
     }
 
-    canvas->structure = mlx_new_image(display, WIDTH, HEIGHT);
+    canvas->structure = mlx_new_image(display, width, height);
     canvas->pixels    = mlx_get_data_addr(canvas->structure, 
             &canvas->bits_per_pixel, &canvas->line_length, &canvas->endian);
 

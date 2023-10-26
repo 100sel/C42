@@ -31,26 +31,48 @@ unsigned int   pixel_get(t_image *img, int x, int y)
 void    draw_sprite(t_image *canvas, t_image *sprite, int x_start, int y_start, int width, int height)
 {
     unsigned int pixel;
-    int x_cnt;
-    int y_cnt;
 
-    x_cnt = 0;
-    y_cnt = 0;
-
-    for (int y = y_start; y_cnt < height; ++y)
+    for (int y = 0; y < height; ++y)
     {
-        for (int x = x_start; x_cnt < width; ++x)
+        for (int x = 0; x < width; ++x)
         {
-            pixel = pixel_get(sprite, x_cnt, y_cnt);
+            pixel = pixel_get(sprite, x, y);
             if (pixel != 0xFF000000)
-                pixel_put(canvas, x, y, pixel); 
-            x_cnt++;
+                pixel_put(canvas, x + x_start, y + y_start, pixel); 
         }
-        x_cnt = 0;
-        y_cnt++;
     }
 }
 
+void    draw_tile(t_data *data, int x, int y)
+{
+    switch (data->map->tiles[y][x].type)
+    {
+        case '0':
+
+            break;
+
+        case '1':
+
+            break;
+
+        case 'C':
+
+            break;
+
+        case 'P':
+            printf("There is a player !");
+            draw_sprite(data->canvas, data->player, 
+                    x * SPRITE_RES, y * SPRITE_RES, data->player->width, data->player->height);  
+            break;
+
+        case 'E':
+
+            break;
+
+        default:
+            break;
+    }
+}
 /*
 void    draw_bg(t_image *image, t_image *sprite, int width, int height)
 {

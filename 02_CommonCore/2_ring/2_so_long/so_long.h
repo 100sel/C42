@@ -1,13 +1,15 @@
 #include <mlx.h>
 #include <X11/keysym.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
 
-#define MALLOC_ERROR    1
-#define WIDTH           1280
-#define HEIGHT          720
+#define ERROR_          1
 #define NAME            "so_long"
+#define MAX_SIZE        256
+#define SPRITE_RES      32
 
 typedef unsigned char byte;
 
@@ -16,6 +18,12 @@ typedef struct s_tile {
     int x;
     int y;
 }               t_tile;
+
+typedef struct s_map {
+    t_tile **tiles;
+    int width;
+    int height;
+}               t_map;
 
 typedef struct s_image {
     void *structure;
@@ -36,19 +44,26 @@ typedef struct s_data {
     t_image *coin;
     t_image *player;
     t_image *stairs;
+    t_map   *map;
 }               t_data;
 
-t_data          *init_data(void);
+t_data          *get_assets(int width, int height);
 
 void            freeZ(int count, ...);
-int             cleaner(t_data *data);
+void            cleaner(t_data *data);
+void            map_cleaner(t_map *map);
+
+int             type_valid(char type);
+t_map           *get_map(char *path);
 
 unsigned int    pixel_get(t_image *img, int x, int y);
 void            pixel_put(t_image *image, int x, int y, unsigned int pixel); 
 void            get_sprite(void *display, char *path, t_image *sprite);
 void            draw_sprite(t_image *canvas, t_image *sprite, 
         int x_start, int y_start, int width, int height);
+void            draw_tile(t_data *data, int x, int y);
 
-int             handler_key(int keysym, t_data *data);
+int             frame_hdl(t_data *data);
+int             key_hdl(int keysym, t_data *data);
 int             destroy_hdl(t_data *data);
 

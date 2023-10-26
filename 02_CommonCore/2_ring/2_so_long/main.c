@@ -1,15 +1,22 @@
 #include "so_long.h"
 
-int     main(void)
+int     main(int argc, char **argv)
 {
-    t_data *data= init_data();
+    if (argc != 2)
+    {
+        printf("./%s path/to/map.ber", NAME);
+        return ERROR_;
+    }
 
-    mlx_key_hook(data->window, handler_key, data);
+    t_map   *map  = get_map(argv[1]);
+    t_data  *data = get_assets(map->width, map->height);
+    data->map     = map;
+
+    mlx_key_hook(data->window, key_hdl, data);
     mlx_hook(data->window, 17, (1L<<17), destroy_hdl, data);
+//    mlx_loop_hook(data->display, frame_hdl, data); 
     
-    draw_sprite(data->canvas, data->player, 
-            WIDTH / 2, HEIGHT / 2, data->player->width, data->player->height);  
-
+    frame_hdl(data);
     mlx_put_image_to_window(data->display, data->window, data->canvas->structure, 0, 0);
     mlx_loop(data->display);
 

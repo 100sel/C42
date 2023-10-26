@@ -6,6 +6,7 @@ OBJS = ${SRCS:.c=.o}
 LIBS = -L/usr/local/lib -lmlx -lXext -lX11 
 
 NAME = so_long
+MAP	 = maps/map.ber
 
 COMP = gcc
 FLAG = -g -Wall -Werror -Wextra
@@ -27,5 +28,5 @@ fclean: clean
 re:		fclean all
 
 mck: 	
-		valgrind --leak-check=full --show-leak-kinds=all ./${NAME}
+		valgrind --leak-check=full --show-leak-kinds=all ./${NAME} ${MAP}
 		

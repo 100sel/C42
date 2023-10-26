@@ -1,14 +1,89 @@
-==9415== Memcheck, a memory error detector
-==9415== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==9415== Using Valgrind-3.19.0 and LibVEX; rerun with -h for copyright info
-==9415== Command: ./so_long
-==9415== 
-==9415== 
-==9415== HEAP SUMMARY:
-==9415==     in use at exit: 0 bytes in 0 blocks
-==9415==   total heap usage: 217 allocs, 217 frees, 111,752 bytes allocated
-==9415== 
-==9415== All heap blocks were freed -- no leaks are possible
-==9415== 
-==9415== For lists of detected and suppressed errors, rerun with: -s
-==9415== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==4639== Memcheck, a memory error detector
+==4639== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==4639== Using Valgrind-3.19.0 and LibVEX; rerun with -h for copyright info
+==4639== Command: ./so_long maps/map.ber
+==4639== 
+==4639== Invalid free() / delete / delete[] / realloc()
+==4639==    at 0x4887B40: free (vg_replace_malloc.c:872)
+==4639==    by 0x10EBB7: map_cleaner (handlers.c:20)
+==4639==    by 0x10ED23: cleaner (handlers.c:38)
+==4639==    by 0x10EDA3: handler_key (handlers.c:49)
+==4639==    by 0x10F9D7: mlx_loop (in /home/svn7zv/C42/02_CommonCore/2_ring/2_so_long/so_long)
+==4639==    by 0x10EF2B: main (main.c:22)
+==4639==  Address 0x4d01e2c is 12 bytes inside a block of size 3,072 free'd
+==4639==    at 0x4887B40: free (vg_replace_malloc.c:872)
+==4639==    by 0x10EBB7: map_cleaner (handlers.c:20)
+==4639==    by 0x10ED23: cleaner (handlers.c:38)
+==4639==    by 0x10EDA3: handler_key (handlers.c:49)
+==4639==    by 0x10F9D7: mlx_loop (in /home/svn7zv/C42/02_CommonCore/2_ring/2_so_long/so_long)
+==4639==    by 0x10EF2B: main (main.c:22)
+==4639==  Block was alloc'd at
+==4639==    at 0x4889F94: calloc (vg_replace_malloc.c:1328)
+==4639==    by 0x10F003: get_map (maps.c:40)
+==4639==    by 0x10EE1B: main (main.c:11)
+==4639== 
+==4639== Invalid read of size 8
+==4639==    at 0x10EB98: map_cleaner (handlers.c:20)
+==4639==    by 0x10ED23: cleaner (handlers.c:38)
+==4639==    by 0x10EDA3: handler_key (handlers.c:49)
+==4639==    by 0x10F9D7: mlx_loop (in /home/svn7zv/C42/02_CommonCore/2_ring/2_so_long/so_long)
+==4639==    by 0x10EF2B: main (main.c:22)
+==4639==  Address 0x4d011e8 is 8 bytes inside a block of size 3,072 free'd
+==4639==    at 0x4887B40: free (vg_replace_malloc.c:872)
+==4639==    by 0x10EBE7: map_cleaner (handlers.c:21)
+==4639==    by 0x10ED23: cleaner (handlers.c:38)
+==4639==    by 0x10EDA3: handler_key (handlers.c:49)
+==4639==    by 0x10F9D7: mlx_loop (in /home/svn7zv/C42/02_CommonCore/2_ring/2_so_long/so_long)
+==4639==    by 0x10EF2B: main (main.c:22)
+==4639==  Block was alloc'd at
+==4639==    at 0x4889F94: calloc (vg_replace_malloc.c:1328)
+==4639==    by 0x10EFDB: get_map (maps.c:37)
+==4639==    by 0x10EE1B: main (main.c:11)
+==4639== 
+==4639== Invalid free() / delete / delete[] / realloc()
+==4639==    at 0x4887B40: free (vg_replace_malloc.c:872)
+==4639==    by 0x10EBE7: map_cleaner (handlers.c:21)
+==4639==    by 0x10ED23: cleaner (handlers.c:38)
+==4639==    by 0x10EDA3: handler_key (handlers.c:49)
+==4639==    by 0x10F9D7: mlx_loop (in /home/svn7zv/C42/02_CommonCore/2_ring/2_so_long/so_long)
+==4639==    by 0x10EF2B: main (main.c:22)
+==4639==  Address 0x4d011e8 is 8 bytes inside a block of size 3,072 free'd
+==4639==    at 0x4887B40: free (vg_replace_malloc.c:872)
+==4639==    by 0x10EBE7: map_cleaner (handlers.c:21)
+==4639==    by 0x10ED23: cleaner (handlers.c:38)
+==4639==    by 0x10EDA3: handler_key (handlers.c:49)
+==4639==    by 0x10F9D7: mlx_loop (in /home/svn7zv/C42/02_CommonCore/2_ring/2_so_long/so_long)
+==4639==    by 0x10EF2B: main (main.c:22)
+==4639==  Block was alloc'd at
+==4639==    at 0x4889F94: calloc (vg_replace_malloc.c:1328)
+==4639==    by 0x10EFDB: get_map (maps.c:37)
+==4639==    by 0x10EE1B: main (main.c:11)
+==4639== 
+==4639== Invalid free() / delete / delete[] / realloc()
+==4639==    at 0x4887B40: free (vg_replace_malloc.c:872)
+==4639==    by 0x10EC0B: map_cleaner (handlers.c:23)
+==4639==    by 0x10ED23: cleaner (handlers.c:38)
+==4639==    by 0x10EDA3: handler_key (handlers.c:49)
+==4639==    by 0x10F9D7: mlx_loop (in /home/svn7zv/C42/02_CommonCore/2_ring/2_so_long/so_long)
+==4639==    by 0x10EF2B: main (main.c:22)
+==4639==  Address 0x4d011e0 is 0 bytes inside a block of size 3,072 free'd
+==4639==    at 0x4887B40: free (vg_replace_malloc.c:872)
+==4639==    by 0x10EBE7: map_cleaner (handlers.c:21)
+==4639==    by 0x10ED23: cleaner (handlers.c:38)
+==4639==    by 0x10EDA3: handler_key (handlers.c:49)
+==4639==    by 0x10F9D7: mlx_loop (in /home/svn7zv/C42/02_CommonCore/2_ring/2_so_long/so_long)
+==4639==    by 0x10EF2B: main (main.c:22)
+==4639==  Block was alloc'd at
+==4639==    at 0x4889F94: calloc (vg_replace_malloc.c:1328)
+==4639==    by 0x10EFDB: get_map (maps.c:37)
+==4639==    by 0x10EE1B: main (main.c:11)
+==4639== 
+==4639== 
+==4639== HEAP SUMMARY:
+==4639==     in use at exit: 0 bytes in 0 blocks
+==4639==   total heap usage: 529 allocs, 66,065 frees, 900,292 bytes allocated
+==4639== 
+==4639== All heap blocks were freed -- no leaks are possible
+==4639== 
+==4639== For lists of detected and suppressed errors, rerun with: -s
+==4639== ERROR SUMMARY: 130816 errors from 4 contexts (suppressed: 1 from 1)

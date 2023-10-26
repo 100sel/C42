@@ -1,30 +1,8 @@
-main.c: In function ‘drawer’:
-main.c:63:11: error: unused variable ‘sprite_ptr’ [-Werror=unused-variable]
-   63 |     char *sprite_ptr;
-      |           ^~~~~~~~~~
-main.c: In function ‘main’:
-main.c:192:29: error: dereferencing ‘void *’ pointer [-Werror]
-  192 |     sprite.structure = image->img;
-      |                             ^~
-main.c:192:29: error: request for member ‘img’ in something not a structure or union
-main.c:193:26: error: dereferencing ‘void *’ pointer [-Werror]
-  193 |     sprite.pixels = image->addr;
-      |                          ^~
-main.c:193:26: error: request for member ‘addr’ in something not a structure or union
-main.c:194:34: error: dereferencing ‘void *’ pointer [-Werror]
-  194 |     sprite.bits_per_pixel = image->bpp;
-      |                                  ^~
-main.c:194:34: error: request for member ‘bpp’ in something not a structure or union
-main.c:195:31: error: dereferencing ‘void *’ pointer [-Werror]
-  195 |     sprite.line_length = image->size_line;
-      |                               ^~
-main.c:195:31: error: request for member ‘size_line’ in something not a structure or union
-main.c:200:5: error: too few arguments to function ‘mlx_put_image_to_window’
-  200 |     mlx_put_image_to_window(data->display, data->window, data->image);
-      |     ^~~~~~~~~~~~~~~~~~~~~~~
-In file included from main.c:1:
-/usr/local/include/mlx.h:75:9: note: declared here
-   75 | int     mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr,
-      |         ^~~~~~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
-make: *** [Makefile:14: main.o] Error 1
+handlers.c: In function ‘map_cleaner’:
+handlers.c:27:33: error: lvalue required as left operand of assignment
+   27 |             (map->tiles[i]) + j = NULL;
+      |                                 ^
+handlers.c:32:26: error: lvalue required as left operand of assignment
+   32 |         (map->tiles) + i = NULL;
+      |                          ^
+make: *** [Makefile:15: handlers.o] Error 1
