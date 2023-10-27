@@ -1,19 +1,46 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+
+#define ERR_ 1
+
+#define SA  1
+#define SB  2
+#define SS  3 
+#define PA  4
+#define PB  5
+#define RA  6
+#define RB  7
+#define RR  8
+#define RRA 9
+#define RRB 10
+#define RRR 11
 
 typedef struct  s_stack {
-    int     *a_stk;
-    int     *b_stk;
+    int         top;
+    int         *items;
 }               t_stack;
 
-void    sa(t_stack *stacks);
-void    sb(t_stack *stacks);
-void    ss(t_stack *stacks);
+typedef struct  s_set {
+    int         max_size;
+    t_stack     *a_stk;
+    t_stack     *b_stk;
+}               t_set;
 
-void    do_op(t_stack *stacks, int op);
+t_set   *init_set(int size, char **list);
+int     *init_stack(int size, char **list);
 
-int     *get_stack(char *list, int size);
+void    do_op(t_set *stacks, int op);
 
-void    print_stk(int *stk);
-void    print_stks(t_stack *stacks);
+void    sx(t_stack  *stk);
+void    ss(t_set    *stacks);
+void    px(t_stack  *dest, t_stack *src);
+void    rx(t_stack  *stk);
+void    rr(t_set    *stacks);
+void    rrx(t_stack *stk);
+void    rrr(t_set   *stacks);
+
+void    cleaner(t_set *stacks);
+void    print_stks(t_set *stacks);
+void    err_hdl(int err_no, char *err_msg);

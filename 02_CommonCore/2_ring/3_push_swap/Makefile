@@ -25,4 +25,5 @@ fclean:	clean
 re:		fclean all
 
 run:
-		clear && ./${NAME} "4 67 3 87 23"
+		clear && ./${NAME} 4 67 3 87 23 6 37 42 28 1 
+rerun:  re run
