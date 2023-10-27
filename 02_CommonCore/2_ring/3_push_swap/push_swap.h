@@ -17,9 +17,15 @@
 #define RRB 10
 #define RRR 11
 
+typedef struct  s_node {
+    int         value;
+    int         nval;
+    int         bin;
+}               t_node;
+
 typedef struct  s_stack {
     int         top;
-    int         *items;
+    t_node      *items;
 }               t_stack;
 
 typedef struct  s_set {

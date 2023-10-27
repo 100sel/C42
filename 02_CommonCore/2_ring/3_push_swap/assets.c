@@ -25,12 +25,12 @@ t_set   *init_set(int size, char **list)
 
 int     *init_stack(int size, char **list)
 {
-    int     *stk;
-    int     *ptr;
+    t_node  *stk;
+    t_node  *ptr;
     char    *dptr;
     int     tmp;
 
-    stk = malloc(sizeof(int) * size);
+    stk = malloc(sizeof(t_node) * size);
     ptr = stk;
 
     for (int i = size; i > 0; i--)
@@ -49,9 +49,21 @@ int     *init_stack(int size, char **list)
             if (tmp == stk[j])
                 err_hdl(ERR_, "Can't have duplicate");
 
-        *ptr++  = tmp;
+        *ptr++->value  = tmp;
     }
 
     return stk;
+}
+
+int     *get_nvalue(t_stack *stk)
+{
+    t_node *tmp[stk->top - 1];
+
+    for (int i = 0; i < top - 1; i++)
+        tmp[i] = stk + i;
+
+    qsort(tmp, stk->top - 1, sizeof(t_node), cmp);
+
+    for (int i = 
 }
 

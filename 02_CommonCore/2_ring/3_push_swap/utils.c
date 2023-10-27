@@ -55,3 +55,8 @@ int issorted(t_stack *stk) {
     }
     return 1;
 }
+
+int cmp_nodev(const void *a, consdt void *b)
+{
+    return (*(int *)a->value - *(int *)b->value);
+}
