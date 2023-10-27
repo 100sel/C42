@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void    do_op(t_set *stacks, int op)
+void    do_op(int op, t_set *stacks) 
 {
     switch(op)
     {

@@ -31,7 +31,7 @@ typedef struct  s_set {
 t_set   *init_set(int size, char **list);
 int     *init_stack(int size, char **list);
 
-void    do_op(t_set *stacks, int op);
+void    do_op(int op, t_set *stacks);
 
 void    sx(t_stack  *stk);
 void    ss(t_set    *stacks);
@@ -44,3 +44,4 @@ void    rrr(t_set   *stacks);
 void    cleaner(t_set *stacks);
 void    print_stks(t_set *stacks);
 void    err_hdl(int err_no, char *err_msg);
+int     issorted(t_stack *stk);
