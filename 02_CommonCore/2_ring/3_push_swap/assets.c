@@ -2,28 +2,30 @@
 
 t_set   *init_set(int size, char **list)
 {
-    t_set   *stks;
+    t_set   *set;
     t_stack *a_stk;
     t_stack *b_stk;
 
-    stks            = malloc(sizeof(t_set));
+    set            = malloc(sizeof(t_set));
     a_stk           = malloc(sizeof(t_stack));
     b_stk           = malloc(sizeof(t_stack));
 
     a_stk->items    = init_stack(size, list);
-    b_stk->items    = calloc(sizeof(int), size);
+    b_stk->items    = calloc(sizeof(t_node), size);
 
-    stks->max_size  = size;
+    set->max_size  = size;
     a_stk->top      = size;
     b_stk->top      = 0;
 
-    stks->a_stk     = a_stk;
-    stks->b_stk     = b_stk;
+    set->a_stk     = a_stk;
+    set->b_stk     = b_stk;
 
-    return stks;
+    get_nvalue(a_stk);
+
+    return set;
 }
 
-int     *init_stack(int size, char **list)
+t_node  *init_stack(int size, char **list)
 {
     t_node  *stk;
     t_node  *ptr;
@@ -46,24 +48,25 @@ int     *init_stack(int size, char **list)
             err_hdl(ERR_, "Can't be 0");
 
         for (int j = 0; j < size; j++)
-            if (tmp == stk[j])
+            if (tmp == stk[j].value)
                 err_hdl(ERR_, "Can't have duplicate");
 
-        *ptr++->value  = tmp;
+        ptr++->value  = tmp;
     }
 
     return stk;
 }
 
-int     *get_nvalue(t_stack *stk)
+void    get_nvalue(t_stack *stk)
 {
-    t_node *tmp[stk->top - 1];
+    int     size = stk->top - 1;
+    t_node  *tmp[size];
 
-    for (int i = 0; i < top - 1; i++)
-        tmp[i] = stk + i;
+    for (int i = 0; i <= size; i++)
+        tmp[i] = (stk->items) + i;
 
-    qsort(tmp, stk->top - 1, sizeof(t_node), cmp);
+    qsort(tmp, size + 1, sizeof(t_node *), cmp_nodev);
 
-    for (int i = 
+    for (int i = 0; i <= size; i++)
+        tmp[i]->nval = i + 1;
 }
-

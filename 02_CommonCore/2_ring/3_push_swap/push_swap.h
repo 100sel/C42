@@ -35,7 +35,8 @@ typedef struct  s_set {
 }               t_set;
 
 t_set   *init_set(int size, char **list);
-int     *init_stack(int size, char **list);
+t_node  *init_stack(int size, char **list);
+void    get_nvalue(t_stack *stk);
 
 void    do_op(int op, t_set *stacks);
 
@@ -51,3 +52,4 @@ void    cleaner(t_set *stacks);
 void    print_stks(t_set *stacks);
 void    err_hdl(int err_no, char *err_msg);
 int     issorted(t_stack *stk);
+int     cmp_nodev(const void *a, const void *b);

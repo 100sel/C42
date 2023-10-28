@@ -9,15 +9,15 @@ void    print_stks(t_set *stacks)
     printf("\n");
     for (int i = stacks->max_size - 1; i >= 0; i--)
     {
-        if (!stacks->a_stk->items[i])
+        if (!stacks->a_stk->items[i].value)
             tmp_a[0] = ' ';
         else 
-            sprintf(tmp_a, "%d", stacks->a_stk->items[i]);
+            sprintf(tmp_a, "%d", stacks->a_stk->items[i].value);
 
-        if (!stacks->b_stk->items[i])
+        if (!stacks->b_stk->items[i].value)
             tmp_b[0] = ' ';
         else 
-            sprintf(tmp_b, "%d", stacks->b_stk->items[i]);
+            sprintf(tmp_b, "%d", stacks->b_stk->items[i].value);
 
         printf("%s\t%s\n", tmp_a, tmp_b);
 
@@ -49,14 +49,19 @@ void    err_hdl(int err_no, char *err_msg)
 
 int issorted(t_stack *stk) {
     for (int i = stk->top - 1; i > 0; i--) {
-        if (stk->items[i] < stk->items[i - 1]) {
+        if (stk->items[i].value < stk->items[i - 1].value) {
             return 0;
         }
     }
     return 1;
 }
 
-int cmp_nodev(const void *a, consdt void *b)
+int cmp_nodev(const void *a,const void *b)
 {
-    return (*(int *)a->value - *(int *)b->value);
+    t_node *node_a = *((t_node **)a);
+    t_node *node_b = *((t_node **)b);
+
+    if (node_a->value > node_b->value)
+        return 1;
+    return 0;
 }

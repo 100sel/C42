@@ -1,51 +1,51 @@
 #include "push_swap.h"
 
-void    do_op(int op, t_set *stacks) 
+void    do_op(int op, t_set *set) 
 {
     switch(op)
     {
         case SA:
-            sx(stacks->a_stk);
+            sx(set->a_stk);
             printf("sa\n");
             break;
         case SB:
-            sx(stacks->b_stk);
+            sx(set->b_stk);
             printf("sb\n");
             break;
         case SS:
-            ss(stacks);
+            ss(set);
             printf("ss\n");
             break;
         case PA:
-            px(stacks->a_stk, stacks->b_stk);
+            px(set->a_stk, set->b_stk);
             printf("pa\n");
             break;
         case PB:
-            px(stacks->b_stk, stacks->a_stk);
+            px(set->b_stk, set->a_stk);
             printf("pb\n");
             break;
         case RA:
-            rx(stacks->a_stk);
+            rx(set->a_stk);
             printf("ra\n");
             break;
         case RB:
-            rx(stacks->b_stk);
+            rx(set->b_stk);
             printf("rb\n");
             break;
         case RR:
-            rr(stacks);
+            rr(set);
             printf("rr\n");
             break;      
         case RRA:
-            rrx(stacks->a_stk);
+            rrx(set->a_stk);
             printf("rra\n");
             break;
         case RRB:
-            rrx(stacks->b_stk);
+            rrx(set->b_stk);
             printf("rrb\n");
             break;
         case RRR:
-            rrr(stacks);
+            rrr(set);
             printf("rrr\n");
             break;      
 
@@ -57,30 +57,30 @@ void    do_op(int op, t_set *stacks)
 
 void    sx(t_stack *stk)
 {
-    int tmp;
+    t_node tmp;
 
-    tmp                 = stk->items[stk->top - 1];
-    stk->items[stk->top - 1]     = stk->items[stk->top - 2];
-    stk->items[stk->top - 2] = tmp;
+    tmp                       = stk->items[stk->top - 1];
+    stk->items[stk->top - 1]  = stk->items[ + stk->top - 2];
+    stk->items[stk->top - 2]  = tmp;
 }
 
-void    ss(t_set *stacks)
+void    ss(t_set *set)
 {
-    sx(stacks->a_stk);
-    sx(stacks->b_stk);
+    sx(set->a_stk);
+    sx(set->b_stk);
 }
 
 void    px(t_stack *dest, t_stack *src)
 {
-    dest->items[dest->top]  = src->items[src->top - 1];
-    src->items[src->top - 1]    = 0;
+    dest->items[dest->top]   = src->items[src->top - 1];
+    memset((src->items) + (src->top - 1), 0, sizeof(t_node));
     dest->top++;
     src->top--;
 }
 
 void    rx(t_stack *stk)
 {
-    int tmp;
+    t_node tmp;
 
     tmp = stk->items[stk->top - 1];
 
@@ -90,15 +90,15 @@ void    rx(t_stack *stk)
     stk->items[0] = tmp;
 }
 
-void    rr(t_set *stacks)
+void    rr(t_set *set)
 {
-    rx(stacks->a_stk);
-    rx(stacks->b_stk);
+    rx(set->a_stk);
+    rx(set->b_stk);
 }
 
 void    rrx(t_stack *stk)
 {
-    int tmp;
+    t_node tmp;
 
     tmp = stk->items[0];
 
@@ -108,8 +108,8 @@ void    rrx(t_stack *stk)
     stk->items[stk->top - 1] = tmp;
 }
 
-void    rrr(t_set *stacks)
+void    rrr(t_set *set)
 {
-    rrx(stacks->a_stk);
-    rrx(stacks->b_stk);
+    rrx(set->a_stk);
+    rrx(set->b_stk);
 }
