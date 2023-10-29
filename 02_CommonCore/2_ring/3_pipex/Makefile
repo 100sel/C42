@@ -1,6 +1,6 @@
 .PHONY: make all run clean flcean re
 
-NOM		= ${PIPEX}
+NAME	= pipex
 
 SRCS 	= ${wildcard *.c}
 OBJS 	= ${SRCS:.c=.o}
@@ -25,6 +25,6 @@ fclean 	:	clean
 re		:	fclean all
 
 run 	:
-			./${NOM}
+			./${NAME} test grep wc test
 
 rerun	:	re run
