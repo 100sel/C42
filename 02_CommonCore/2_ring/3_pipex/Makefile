@@ -25,6 +25,6 @@ fclean 	:	clean
 re		:	fclean all
 
 run 	:
-			./${NAME} test grep wc test
+			./${NAME} test1 "cat" "wc -l" test2
 
 rerun	:	re run
