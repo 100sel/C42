@@ -25,6 +25,6 @@ fclean:		clean
 re:			fclean all
 
 run:		
-			./${NAME} 
+			./${NAME} 5 10000 10000 30000
 
-rerun:		re run
+rerun:		re run 
