@@ -24,4 +24,7 @@ fclean:		clean
 
 re:			fclean all
 
-run:		./${NAME} 
+run:		
+			./${NAME} 
+
+rerun:		re run
