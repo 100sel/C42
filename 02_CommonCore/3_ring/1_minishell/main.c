@@ -18,12 +18,16 @@ int main(void)
     return (0);
 }
 
-t_token *get_token(char *str)
+t_token *get_token(char *str, char end)
 {
     t_token *token;
+    char    *value_ptr;
 
-    token = malloc(sizeof(t_token));
-
+    token       = malloc(sizeof(t_token));
+    value_ptr   = tokan->value;
+    while (*str_ptr)
+        *value_ptr++ = *str_ptr++;
+    
     return token;
 }
 
