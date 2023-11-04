@@ -14,16 +14,16 @@ FLAG = -g -Wall -Werror -Wextra
 ${NAME}:	${OBJS}	
 			${COMP} -o ${NAME} ${OBJS}
 
-all:		${NAME}
-
 clean:
 			rm -f ${OBJS}
 
 fclean:		clean
 			rm -f ${NAME}
 
-re:			fclean all
+all:		${NAME} 
 
+re:			fclean all 
+			rm -f ${OBJS}
 run: 		
 			./${NAME}
 

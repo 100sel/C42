@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-t_token get_token(t_iter *itr)
+t_token get_token(t_iter_char *itr)
 {
     char c;
 
-    c = peek(*itr);
+    c = peek_char(*itr);
     if (isalpha(c))
         return get_word_tkn(itr);
     if (c == ';' || c == '|' || c == '$' || c == '-')
@@ -21,7 +21,7 @@ t_token *lexer(char *input)
 {
     t_token *tokens;
     t_token *tokens_ptr;
-    t_iter  input_itr;
+    t_iter_char  input_itr;
 
     tokens      = calloc(MAX_SIZE, sizeof(t_token));
     if (!tokens)
@@ -31,11 +31,11 @@ t_token *lexer(char *input)
     }
     tokens_ptr  = tokens;
     input_itr   = input; 
-    while (has_next(input_itr))
+    while (has_next_char(input_itr))
     {
-        if (peek(input_itr) == ' ')
+        if (peek_char(input_itr) == ' ')
         {
-            next(&input_itr);
+            next_char(&input_itr);
             continue;
         }
         *tokens_ptr++ = get_token(&input_itr);
