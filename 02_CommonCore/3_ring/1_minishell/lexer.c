@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_token *get_token(t_iter *itr)
+t_token get_token(t_iter *itr)
 {
     char c;
 
@@ -14,17 +14,22 @@ t_token *get_token(t_iter *itr)
     if (c == '\'' || c == '\"')
         return get_quote_tkn(itr);
     err_hdl(ERR_, "trouble with value of *iter at get_token()");
-    return NULL;
+    return get_null_tkn();
 }
 
-t_token **lexer(char *input)
+t_token *lexer(char *input)
 {
-    t_token **tokens;
+    t_token *tokens;
+    t_token *tokens_ptr;
     t_iter  input_itr;
 
-    tokens      = calloc(MAX_SIZE, sizeof(t_token *));
+    tokens      = calloc(MAX_SIZE, sizeof(t_token));
     if (!tokens)
+    {
         err_hdl(ERR_, "trouble when allocating memory to tokens** at lexer()");
+        return NULL;
+    }
+    tokens_ptr  = tokens;
     input_itr   = input; 
     while (has_next(input_itr))
     {
@@ -33,9 +38,9 @@ t_token **lexer(char *input)
             next(&input_itr);
             continue;
         }
-        *(tokens++) = get_token(&input_itr);
+        *tokens_ptr++ = get_token(&input_itr);
     }
-    *tokens = NULL;
+    *tokens_ptr = get_null_tkn();
     return (tokens);
 }
 

@@ -1,11 +1,11 @@
 #include "minishell.h"
 
-t_token *get_word_tkn(t_iter *itr)
+t_token get_word_tkn(t_iter *itr)
 {
     char    c;
     int     length;
     t_slice slice;
-    t_token *token;
+    t_token token;
     
     c               = peek(*itr);
     length          = 0;
@@ -17,49 +17,46 @@ t_token *get_word_tkn(t_iter *itr)
         c = peek(*itr);
     }   
     slice.length    = length;
-    token           = malloc(sizeof(t_token));
-    token->slice    = slice;
-    token->type     = WORD;
+    token.slice    = slice;
+    token.type     = WORD;
     return (token);
 }
 
-t_token *get_ope_tkn(t_iter *itr)
+t_token get_ope_tkn(t_iter *itr)
 {
     char    c;
     t_slice slice;
-    t_token *token;
+    t_token token;
 
     c               = peek(*itr);
     slice.start    = *itr;
     slice.length   = 1;
-    token           = malloc(sizeof(t_token));
-    token->slice    = slice;
+    token.slice    = slice;
     if (c == ';')
-        token->type = END_OF_LINE;
+        token.type = END_OF_LINE;
     if (c == '|')
-        token->type = PIPEX;
+        token.type = PIPEX;
     if (c == '$')
-        token->type = ENV_VAR;
+        token.type = ENV_VAR;
     if (c == '-')
-        token->type = FLAG;
+        token.type = FLAG;
     next(itr);
     return (token);
 }
 
-t_token *get_io_tkn(t_iter *itr)
+t_token get_io_tkn(t_iter *itr)
 {
     char    c;
     t_slice slice;
-    t_token *token;
+    t_token token;
 
     c               = peek(*itr);
     slice.start     = *itr;
-    token           = malloc(sizeof(t_token));
     if (c == '<')
     {
         next(itr);
         slice.length   = 1;
-        token->type     = IN_STREAM;
+        token.type     = IN_STREAM;
     }
     else if (c == '>')
     {
@@ -69,21 +66,32 @@ t_token *get_io_tkn(t_iter *itr)
         {
             next(itr);
             slice.length   = 2;
-            token->type     = D_OUT_STREAM;
+            token.type     = D_OUT_STREAM;
         }
         else
         {
             slice.length   = 1;
-            token->type     = OUT_STREAM;
+            token.type     = OUT_STREAM;
         }
     }
-    token->slice = slice;
+    token.slice = slice;
     return (token);
 }
 
-t_token *get_quote_tkn(t_iter *itr)
+t_token get_quote_tkn(t_iter *itr)
 {
-    if (*itr)
-        return NULL;
-    return NULL;
+    next(itr);
+    return get_null_tkn();
+}
+
+t_token get_null_tkn(void)
+{
+    t_token tkn;
+    t_slice slc;
+
+    slc.start  = NULL;
+    slc.length = 0;
+    tkn.slice  = slc;
+    tkn.type   = NULL_END;
+    return(tkn);
 }

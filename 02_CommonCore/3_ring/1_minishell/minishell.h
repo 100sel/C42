@@ -19,7 +19,8 @@ typedef enum    e_type {
     OUT_STREAM,
     D_OUT_STREAM,
     PIPEX,
-    ENV_VAR
+    ENV_VAR,
+    NULL_END
 }               t_type;
 
 typedef struct  s_slice {
@@ -36,14 +37,15 @@ int     has_next(const t_iter itr);
 char    peek(const t_iter itr);
 char    next(t_iter *itr);
 
-t_token *get_token(t_iter *itr);
-t_token **lexer(char *input);
+t_token get_token(t_iter *itr);
+t_token *lexer(char *input);
 void    print_token(t_token *tkn);
 
-t_token *get_word_tkn(t_iter *itr);
-t_token *get_flag_tkn(t_iter *itr);
-t_token *get_ope_tkn(t_iter *itr);
-t_token *get_io_tkn(t_iter *itr);
-t_token *get_quote_tkn(t_iter *itr);
+t_token get_word_tkn(t_iter *itr);
+t_token get_flag_tkn(t_iter *itr);
+t_token get_ope_tkn(t_iter *itr);
+t_token get_io_tkn(t_iter *itr);
+t_token get_quote_tkn(t_iter *itr);
+t_token get_null_tkn(void);
 
 void    err_hdl(int err_num, char *err_msg);
