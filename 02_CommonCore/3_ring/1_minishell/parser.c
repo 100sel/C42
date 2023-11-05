@@ -1,11 +1,6 @@
 #include "minishell.h"
 
-void    *parser(t_token *tokens)
+t_node  *parser(t_token *tokens)
 {
-    return tokens;
-}
-
-void    print_node(t_node *node)
-{
-    
+    return (t_node *)tokens;
 }
