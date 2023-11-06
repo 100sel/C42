@@ -10,3 +10,5 @@
 #define ERR_        1
 
 void    err_hdl(int err_num, char *err_msg);
+void    cleaner(t_token *tokens, t_node *nodes);
+void    clean_node(t_node *node);

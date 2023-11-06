@@ -1,14 +1,14 @@
 typedef enum    e_type_tkn {
     WORD,
     FLAG,
+    PIPEX,
+    ENV_VAR,
     END_OF_LINE,
     SIMPLE_QUOTE,
     DOUBLE_QUOTE,
     IN_STREAM,
     OUT_STREAM,
     D_OUT_STREAM,
-    PIPEX,
-    ENV_VAR,
     NULL_END
 }               t_type_tkn;
 
