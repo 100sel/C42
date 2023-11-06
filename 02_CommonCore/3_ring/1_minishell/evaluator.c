@@ -1,55 +1,56 @@
-#include "minishell"
+#include "minishell.h"
 
 void    eval(t_node *node)
 {
     switch(node->type)
     {
-        case 'Cmdfull':
+        case Cmdfull:
             if (node->r_child)
-                setup_pipex();
+                set_pipex();
             eval(node->l_child);
             if (node->r_child)
                 eval(node->r_child);
             break;
 
-        case 'Pipex':
+        case Pipex:
             if (node->r_child)
-                setup_pipex();
+                set_pipex();
             eval(node->l_child);
             if (node->r_child)
                 eval(node->r_child);
             break;
 
-        case 'Cmd':
+        case Cmd:
             if (node->r_child)
                 eval(node->r_child);
             eval(node->l_child);
             break;
 
-        case 'Redirs':
-            eval(node->l_child):
+        case Redirs:
+            eval(node->l_child);
             if (node->r_child)
                 eval(node->r_child);
             break;
 
-        case 'In':
-            setup_in_stream(node);
+        case In:
+            set_in(node);
             break;
 
-        case 'Out':
+        case Out:
             if (node->l_child->type == D_out_stream)
-                setup_d_out_stream(node);
+                set_d_out(node);
             else 
-                setup_out_stream(node);
+                set_out(node);
             break;
 
-        case 'Call':
+        case Call:
             char **args;
             char *cmd;
             if (node->r_child)
-                args = setup_args(node->r_child);
+                args = set_args(node->r_child);
             cmd = node->r_child->value;
             exek(cmd, args);
+            break;
 
         default:
             err_hdl(ERR_, "trouble at node evaluation");
