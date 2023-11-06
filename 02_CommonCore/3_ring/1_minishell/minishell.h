@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include "parser.h"
+#include "evaluator.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
